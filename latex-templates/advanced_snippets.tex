@@ -1,0 +1,670 @@
+% ==========================================
+% ADVANCED LATEX TEMPLATE SNIPPETS
+% Professional-Grade Code Components
+% ==========================================
+
+% ============================================================
+% 1. PREMIUM TABLE TEMPLATES
+% ============================================================
+
+% --- Triple-Rule Academic Table ---
+\begin{table}[H]
+\centering
+\caption{Academic Standard Table}
+\label{tab:academic}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Variable} & \textbf{Mean} & \textbf{Std. Dev.} & \textbf{N} \\
+\midrule
+Age & 34.5 & 12.3 & 1,250 \\
+Income (\$) & 52,300 & 18,450 & 1,250 \\
+Education & 14.2 & 2.8 & 1,250 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --- Gradient Color Table ---
+\usepackage{colortbl}
+\definecolor{headergrad}{RGB}{68,114,196}
+\definecolor{rowalt}{RGB}{242,242,242}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\rowcolor{headergrad}
+\color{white}\textbf{Metric} & \color{white}\textbf{Q1} & \color{white}\textbf{Q2} & \color{white}\textbf{Q3} \\
+\hline
+\rowcolor{rowalt}
+Revenue & \$1.2M & \$1.5M & \$1.8M \\
+Profit & \$320K & \$410K & \$520K \\
+\rowcolor{rowalt}
+Growth & 12\% & 15\% & 18\% \\
+\hline
+\end{tabular}
+\end{table}
+
+% --- Sideways Table for Wide Data ---
+\usepackage{rotating}
+\begin{sidewaystable}[H]
+\centering
+\caption{Wide Dataset Overview}
+\begin{tabular}{lcccccccc}
+\toprule
+ID & Param1 & Param2 & Param3 & Param4 & Param5 & Param6 & Param7 & Result \\
+\midrule
+001 & 23.4 & 45.6 & 78.9 & 12.3 & 34.5 & 56.7 & 89.0 & Pass \\
+002 & 34.5 & 56.7 & 89.0 & 23.4 & 45.6 & 67.8 & 90.1 & Pass \\
+% ... more rows
+\bottomrule
+\end{tabular}
+\end{sidewaystable}
+
+% --- Table with Conditional Formatting ---
+\usepackage{fmtcount}
+\newcommand{\highlighthigh}[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand{\highlightlow}[1]{\textcolor{green}{#1}}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+\toprule
+Region & Sales & Status \\
+\midrule
+North & \highlighthigh{\$2.5M} & Above Target \\
+South & \$1.8M & On Target \\
+East & \highlightlow{\$1.2M} & Below Target \\
+West & \$2.1M & On Target \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% 2. ADVANCED TCOLORBOX COLLECTION
+% ============================================================
+
+% --- Learning Objective Box ---
+\newtcolorbox{learningobj}[1][]{
+  enhanced,
+  colback=purple!5!white,
+  colframe=purple!75!black,
+  coltitle=purple!75!black,
+  fonttitle=\bfseries,
+  title=Learning Objectives,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=purple!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% --- Key Takeaway Box ---
+\newtcolorbox{keytakeaway}[1][]{
+  enhanced,
+  colback=teal!5!white,
+  colframe=teal!75!black,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title=Key Takeaway,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=teal!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% --- Research Question Box ---
+\newtcolorbox{researchquestion}[1][]{
+  enhanced,
+  colback=magenta!5!white,
+  colframe=magenta!75!black,
+  coltitle=magenta!75!black,
+  fonttitle=\bfseries,
+  title=Research Question,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=magenta!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% --- Methodology Box ---
+\newtcolorbox{methodology}[1][]{
+  enhanced,
+  colback=brown!5!white,
+  colframe=brown!75!black,
+  coltitle=brown!75!black,
+  fonttitle=\bfseries,
+  title=Methodology,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=brown!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% --- Proof Box with QED ---
+\newtcbtheorem[number within=section]{myproof}{Proof}
+  {enhanced jigsaw,
+   colback=gray!5!white,
+   colframe=gray!75!black,
+   coltitle=white,
+   fonttitle=\bfseries,
+   attach boxed title to top left={yshift=-2mm, xshift=2mm},
+   boxed title style={colback=gray!75!black},
+   before skip=10pt,
+   after skip=10pt}
+  {prf}
+
+% --- Quote/Highlight Box ---
+\newtcolorbox{quotehighlight}[1][]{
+  enhanced,
+  colback=orange!5!white,
+  colframe=orange!75!black,
+  coltitle=orange!75!black,
+  fonttitle=\itshape,
+  title=Important Quote,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=orange!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% ============================================================
+% 3. COMPLEX FLOWCHART PATTERNS
+% ============================================================
+
+% --- Multi-Branch Decision Tree ---
+\begin{tikzpicture}[
+    node distance=2cm,
+    startstop/.style={rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30},
+    process/.style={rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!20},
+    decision/.style={diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!20},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node [startstop] (start) {Start};
+    \node [process, below of=start] (p1) {Process A};
+    \node [decision, below of=p1] (d1) {Condition 1?};
+    \node [process, below of=d1, yshift=-0.5cm] (p2) {Process B};
+    \node [decision, below of=p2, yshift=-0.5cm] (d2) {Condition 2?};
+    \node [process, left of=d2, xshift=-2cm] (p3) {Process C};
+    \node [process, right of=d2, xshift=2cm] (p4) {Process D};
+    \node [startstop, below of=d2, yshift=-1cm] (end) {End};
+    
+    \path [arrow] (start) -- (p1);
+    \path [arrow] (p1) -- (d1);
+    \path [arrow] (d1) -- node[right] {Yes} (p2);
+    \path [arrow] (d1.east) -- ++(1.5,0) |- (end);
+    \path [arrow] (p2) -- (d2);
+    \path [arrow] (d2) -- node[above] {Yes} (p4);
+    \path [arrow] (d2) -- node[above] {No} (p3);
+    \path [arrow] (p3) |- (end);
+    \path [arrow] (p4) |- (end);
+\end{tikzpicture}
+
+% --- Parallel Process Flow ---
+\begin{tikzpicture}[
+    box/.style={rectangle, draw, fill=blue!20, text width=5em, text centered, minimum height=2em, rounded corners},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node [box] (start) {Start};
+    \node [box, below of=start, yshift=-1cm] (split) {Split};
+    \node [box, left of=split, xshift=-2cm, yshift=-2cm] (path1) {Path 1};
+    \node [box, below of=split, yshift=-2cm] (path2) {Path 2};
+    \node [box, right of=split, xshift=2cm, yshift=-2cm] (path3) {Path 3};
+    \node [box, below of=path2, yshift=-2cm] (merge) {Merge};
+    \node [box, below of=merge, yshift=-1cm] (end) {End};
+    
+    \draw [arrow] (start) -- (split);
+    \draw [arrow] (split) -- (path1);
+    \draw [arrow] (split) -- (path2);
+    \draw [arrow] (split) -- (path3);
+    \draw [arrow] (path1) |- (merge);
+    \draw [arrow] (path2) -- (merge);
+    \draw [arrow] (path3) |- (merge);
+    \draw [arrow] (merge) -- (end);
+\end{tikzpicture}
+
+% --- V-Model Development Cycle ---
+\begin{tikzpicture}[
+    phase/.style={rectangle, draw, fill=blue!10, minimum width=3cm, minimum height=1cm, text centered},
+    arrow/.style={thick,->,>=Stealth}
+]
+    % Left side (Requirements)
+    \node [phase] (req) {Requirements};
+    \node [phase, below of=req] (spec) {System Spec};
+    \node [phase, below of=spec] (arch) {Architecture};
+    \node [phase, below of=arch] (impl) {Implementation};
+    
+    % Right side (Testing)
+    \node [phase, right of=impl, xshift=4cm] (unit) {Unit Test};
+    \node [phase, above of=unit] (int) {Integration};
+    \node [phase, above of=int] (sys) {System Test};
+    \node [phase, above of=sys] (uat) {UAT};
+    
+    % Arrows
+    \draw [arrow] (req) -- (spec);
+    \draw [arrow] (spec) -- (arch);
+    \draw [arrow] (arch) -- (impl);
+    \draw [arrow] (impl) -- (unit);
+    \draw [arrow] (unit) -- (int);
+    \draw [arrow] (int) -- (sys);
+    \draw [arrow] (sys) -- (uat);
+    
+    % Connection arrows
+    \draw [arrow, dashed] (req.east) -- (uat.west);
+    \draw [arrow, dashed] (spec.east) -- (sys.west);
+    \draw [arrow, dashed] (arch.east) -- (int.west);
+\end{tikzpicture}
+
+% ============================================================
+% 4. ADVANCED SYSTEM ARCHITECTURES
+% ============================================================
+
+% --- Layered Architecture ---
+\begin{tikzpicture}[
+    layer/.style={rectangle, draw, fill=blue!20, minimum width=10cm, minimum height=1.5cm, text centered},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node [layer] (presentation) {Presentation Layer};
+    \node [layer, below of=presentation] (business) {Business Logic Layer};
+    \node [layer, below of=business] (data) {Data Access Layer};
+    \node [layer, below of=data, fill=green!20] (database) {Database};
+    
+    \draw [arrow, <->] (presentation) -- (business);
+    \draw [arrow, <->] (business) -- (data);
+    \draw [arrow, <->] (data) -- (database);
+\end{tikzpicture}
+
+% --- Event-Driven Architecture ---
+\begin{tikzpicture}[
+    component/.style={rectangle, draw, fill=blue!10, minimum width=2.5cm, minimum height=1.5cm, text centered},
+    eventbus/.style={rectangle, draw, fill=yellow!30, minimum width=8cm, minimum height=1cm, text centered, rounded corners},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node [component] (producer1) {Producer 1};
+    \node [component, right=of producer1] (producer2) {Producer 2};
+    \node [eventbus, below of=producer1, yshift=-1cm, xshift=2cm] (bus) {Event Bus};
+    \node [component, below of=bus, yshift=-1cm, xshift=-2cm] (consumer1) {Consumer 1};
+    \node [component, below of=bus, yshift=-1cm, xshift=2cm] (consumer2) {Consumer 2};
+    
+    \draw [arrow] (producer1.south) -- (bus.north);
+    \draw [arrow] (producer2.south) -- (bus.north);
+    \draw [arrow] (bus.south) -- (consumer1.north);
+    \draw [arrow] (bus.south) -- (consumer2.north);
+\end{tikzpicture}
+
+% --- Cloud Architecture ---
+\begin{tikzpicture}[
+    cloud/.style={ellipse, draw, fill=blue!10, minimum width=4cm, minimum height=2cm, text centered},
+    service/.style={rectangle, draw, fill=green!10, minimum width=2cm, minimum height=1cm, text centered},
+    user/.style={rectangle, draw, fill=orange!20, minimum width=1.5cm, minimum height=1.5cm, text centered, rounded corners},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node [user] (user) {User};
+    \node [cloud, right=of user, xshift=2cm] (cloud) {Cloud Platform};
+    \node [service, above of=cloud, yshift=-0.5cm] (compute) {Compute};
+    \node [service, below of=cloud, yshift=0.5cm] (storage) {Storage};
+    \node [service, right of=cloud, xshift=-0.5cm] (network) {Network};
+    
+    \draw [arrow] (user) -- (cloud);
+    \draw [arrow] (cloud) -- (compute);
+    \draw [arrow] (cloud) -- (storage);
+    \draw [arrow] (cloud) -- (network);
+\end{tikzpicture}
+
+% ============================================================
+% 5. DATA VISUALIZATION TEMPLATES
+% ============================================================
+
+% --- Stacked Bar Chart ---
+\begin{tikzpicture}
+\begin{axis}[
+    ybar stacked,
+    enlargelimits=0.15,
+    legend style={at={(0.5,-0.15)}, anchor=north,legend columns=-1},
+    ylabel={Percentage},
+    symbolic x coords={Q1,Q2,Q3,Q4},
+    xtick=data,
+    nodes near coords,
+]
+\addplot coordinates {(Q1,30) (Q2,35) (Q3,40) (Q4,45)};
+\addplot coordinates {(Q1,20) (Q2,25) (Q3,22) (Q4,20)};
+\addplot coordinates {(Q1,15) (Q2,18) (Q3,20) (Q4,22)};
+\legend{Category A, Category B, Category C}
+\end{axis}
+\end{tikzpicture}
+
+% --- Area Chart ---
+\begin{tikzpicture}
+\begin{axis}[
+    area style,
+    xlabel={Time},
+    ylabel={Value},
+    legend pos=north west,
+]
+\addplot coordinates {(1,2) (2,4) (3,3) (4,7) (5,5)};
+\addlegendentry{Series 1}
+\addplot coordinates {(1,1) (2,2) (3,4) (4,3) (5,6)};
+\addlegendentry{Series 2}
+\end{axis}
+\end{tikzpicture}
+
+% --- Scatter Plot with Regression ---
+\begin{tikzpicture}
+\begin{axis}[
+    scatter,
+    only marks,
+    xlabel={X Variable},
+    ylabel={Y Variable},
+    grid=major,
+]
+\addplot coordinates {
+    (1,2.1) (2,3.9) (3,6.2) (4,7.8) (5,10.1)
+    (1.5,2.8) (2.5,4.5) (3.5,6.8) (4.5,8.2) (5.5,10.5)
+};
+\addplot[red, thick, domain=0:6] {1.7*x + 0.5};
+\end{axis}
+\end{tikzpicture}
+
+% --- Heatmap ---
+\begin{tikzpicture}
+\begin{axis}[
+    view={0}{90},
+    colormap/hot,
+    colorbar,
+    xlabel={X Axis},
+    ylabel={Y Axis},
+]
+\addplot3[surf, shader=flat corner] coordinates {
+    (0,0,1) (1,0,2) (2,0,3) (3,0,4)
+    (0,1,2) (1,1,3) (2,1,4) (3,1,5)
+    (0,2,3) (1,2,4) (2,2,5) (3,2,6)
+    (0,3,4) (1,3,5) (2,3,6) (3,3,7)
+};
+\end{axis}
+\end{tikzpicture}
+
+% ============================================================
+% 6. SPECIALIZED DIAGRAMS
+% ============================================================
+
+% --- UML Class Diagram ---
+\begin{tikzpicture}[
+    class/.style={rectangle, draw, fill=white, minimum width=4cm, minimum height=2cm, text centered},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node [class] (class1) {
+        \textbf{ClassName}\\
+        \hline
+        - privateField: Type\\
+        + publicField: Type\\
+        \hline
+        + method1(): Return\\
+        - method2(): void
+    };
+    \node [class, right=of class1, xshift=2cm] (class2) {
+        \textbf{RelatedClass}\\
+        \hline
+        - data: Type\\
+        \hline
+        + getData(): Type
+    };
+    
+    \draw [arrow] (class1) -- node[above] {association} (class2);
+\end{tikzpicture}
+
+% --- Sequence Diagram ---
+\begin{tikzpicture}[
+    participant/.style={rectangle, draw, fill=blue!10, minimum width=2cm, minimum height=0.8cm, text centered},
+    arrow/.style={thick,->,>=Stealth},
+    dashedarrow/.style={thick,->,>=Stealth, dashed}
+]
+    \node [participant] (user) {User};
+    \node [participant, right=of user, xshift=2cm] (api) {API};
+    \node [participant, right=of api, xshift=2cm] (db) {Database};
+    
+    \draw [arrow] (user.south) -- node[right] {Request} (api.south |- 0,-1);
+    \draw [arrow] (api.south |- 0,-1) -- node[right] {Query} (db.south |- 0,-2);
+    \draw [dashedarrow] (db.south |- 0,-2) -- node[right] {Response} (api.south |- 0,-3);
+    \draw [dashedarrow] (api.south |- 0,-3) -- node[right] {Result} (user.south |- 0,-4);
+\end{tikzpicture}
+
+% --- Deployment Diagram ---
+\begin{tikzpicture}[
+    server/.style={rectangle, draw, fill=gray!20, minimum width=3cm, minimum height=2cm, text centered},
+    database/.style={cylinder, shape aspect=0.5, draw, fill=green!10, minimum width=2cm, minimum height=1.5cm, text centered},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node [server] (web) {Web Server};
+    \node [server, right=of web, xshift=2cm] (app) {App Server};
+    \node [database, below of=app, yshift=-0.5cm] (db) {Database};
+    
+    \draw [arrow] (web) -- (app);
+    \draw [arrow] (app) -- (db);
+\end{tikzpicture}
+
+% ============================================================
+% 7. MATHEMATICAL VISUALIZATIONS
+% ============================================================
+
+% --- Function Graph ---
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=center,
+    xlabel=$x$,
+    ylabel=$y$,
+    domain=-3:3,
+    samples=100,
+]
+\addplot[blue, thick] {x^2};
+\addplot[red, thick, dashed] {2*x};
+\end{axis}
+\end{tikzpicture}
+
+% --- Parametric Curve ---
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=center,
+    xlabel=$x$,
+    ylabel=$y$,
+    domain=0:2*pi,
+    samples=100,
+]
+\addplot[blue, thick] ({cos(deg(x))}, {sin(deg(x))});
+\end{axis}
+\end{tikzpicture}
+
+% --- 3D Surface Plot ---
+\begin{tikzpicture}
+\begin{axis}[
+    view={60}{30},
+    xlabel=$x$,
+    ylabel=$y$,
+    zlabel=$z$,
+]
+\addplot3[surf, domain=-2:2, samples=20] {x^2 + y^2};
+\end{axis}
+\end{tikzpicture}
+
+% ============================================================
+% 8. CUSTOM LIST ENVIRONMENTS
+% ============================================================
+
+\usepackage{enumitem}
+\setlist[itemize,1]{label=\color{blue}\textbullet}
+\setlist[itemize,2]{label=\color{green}\small\textbullet}
+\setlist[enumerate,1]{label=\color{orange}\arabic*.}
+\setlist[enumerate,2]{label=\color{purple}\alph*.}
+
+% Custom description list
+\newenvironment{keypoints}
+  {\begin{description}[font=\bfseries\color{blue}]}
+  {\end{description}}
+
+% ============================================================
+% 9. PROFESSIONAL HEADERS AND FOOTERS
+% ============================================================
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{\small Document Title | \today}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% ============================================================
+% 10. CROSS-REFERENCING ENHANCEMENTS
+% ============================================================
+
+\usepackage[capitalise,noabbrev]{cleveref}
+\Crefname{figure}{Figure}{Figures}
+\Crefname{table}{Table}{Tables}
+\Crefname{equation}{Equation}{Equations}
+\Crefname{section}{Section}{Sections}
+\Crefname{theorem}{Theorem}{Theorems}
+
+% Usage examples:
+% \Cref{fig:example} produces "Figure 1"
+% \Cref{tab:data,fig:chart} produces "Table 1 and Figure 2"
+
+% ============================================================
+% 11. BIBLIOGRAPHY STYLES
+% ============================================================
+
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+% Alternative styles:
+% \usepackage[style=ieee, backend=biber]{biblatex}
+% \usepackage[style=chicago-authordate, backend=biber]{biblatex}
+% \usepackage[style=vancouver, backend=biber]{biblatex}
+
+% ============================================================
+% 12. GLOSSARY AND ACRONYMS
+% ============================================================
+
+\usepackage[acronym,toc]{glossaries}
+\makeglossaries
+
+\newacronym{api}{API}{Application Programming Interface}
+\newacronym{ui}{UI}{User Interface}
+\newacronym{ux}{UX}{User Experience}
+
+\newglossaryentry{latex}{
+    name=LaTeX,
+    description={A document preparation system for high-quality typesetting}
+}
+
+% Usage: \gls{api}, \glspl{ui}, \gls{latex}
+
+% ============================================================
+% 13. CHEMISTRY AND PHYSICS NOTATION
+% ============================================================
+
+\usepackage{chemformula}
+\usepackage{siunitx}
+
+% Chemistry examples:
+% \ch{H2O}, \ch{CO2}, \ch{C6H12O6}
+% \ch{2H2 + O2 -> 2H2O}
+
+% Physics units:
+% \SI{9.81}{\meter\per\second\squared}
+% \SI{100}{\degreeCelsius}
+% \qty{1.6e-19}{\coulomb}
+
+% ============================================================
+% 14. MUSIC NOTATION
+% ============================================================
+
+\usepackage{musixtex}
+% Requires special compilation: latex -> musixflx -> latex
+
+% ============================================================
+% 15. ELECTRICAL CIRCUIT DIAGRAMS
+% ============================================================
+
+\usepackage[american]{circuitikz}
+
+\begin{circuitikz}
+    \draw (0,0) to[battery1] (0,4)
+          to[R, l=$R_1$] (4,4)
+          to[C, l=$C_1$] (4,0)
+          to[ground] (0,0);
+\end{circuitikz}
+
+% ============================================================
+% 16. GEOGRAPHIC MAPS
+% ============================================================
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{geo}
+
+\begin{tikzpicture}
+\begin{axis}[
+    geo,
+    projection=mercator,
+]
+\addplot+[only marks] coordinates {
+    (longitude1 latitude1)
+    (longitude2 latitude2)
+};
+\end{axis}
+\end{tikzpicture}
+
+% ============================================================
+% 17. QR CODE GENERATION
+% ============================================================
+
+\usepackage{qrcode}
+% \qr{https://example.com}
+% \qr[level=L]{Text content}
+% \qr[level=M, size=2cm]{More content}
+
+% ============================================================
+% 18. BARCODE GENERATION
+% ============================================================
+
+\usepackage{pst-barcode}
+% Requires pst-barcode package and appropriate compiler
+
+% ============================================================
+% 19. CALENDAR AND DATE FORMATTING
+% ============================================================
+
+\usepackage{calendar}
+\usepackage{datetime2}
+
+% Custom date formats:
+\DTMnewdatestyle{custom}{%
+    \renewcommand{\DTMdisplaydate}[4]{##1/##2/##3}%
+}
+
+% ============================================================
+% 20. CV/RESUME TEMPLATES
+% ============================================================
+
+% Section styling for CVs
+\newcommand{\cvsection}[1]{%
+    \vspace{1em}%
+    \noindent\textbf{\Large #1}%
+    \vspace{0.5em}%
+    \hrule%
+    \vspace{1em}%
+}
+
+\newcommand{\cventry}[3]{%
+    \noindent\textbf{#1} \hfill \textit{#2}\\%
+    \textit{#3}\\%
+    \vspace{0.5em}%
+}
+
+% ============================================================
+% END OF ADVANCED TEMPLATE SNIPPETS
+% ============================================================

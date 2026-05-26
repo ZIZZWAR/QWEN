@@ -1,0 +1,944 @@
+\documentclass[12pt,a4paper]{article}
+
+% ==========================================
+% ESSENTIAL PACKAGES FOR PROFESSIONAL LATEX
+% ==========================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{tcolorbox}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{smartdiagram}
+\usepackage{flowchart}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{biblatex}
+\usepackage{csquotes}
+
+% Page geometry
+\geometry{margin=1in}
+
+% Color definitions
+\definecolor{primary}{RGB}{0,102,204}
+\definecolor{secondary}{RGB}{0,153,76}
+\definecolor{accent}{RGB}{255,102,0}
+\definecolor{lightgray}{RGB}{240,240,240}
+\definecolor{darkblue}{RGB}{0,51,102}
+
+% ==========================================
+% PROFESSIONAL TABLE TEMPLATES
+% ==========================================
+
+% Template 1: Professional Booktabs Table
+\newenvironment{professionaltable}
+  {\begin{tabularx}{\textwidth}{@{}X X X@{}}}
+  {\end{tabularx}}
+
+% Template 2: Colored Header Table
+\newcommand{\coloredheadertable}[3]{
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{lightgray!25}{white}
+\begin{tabular}{#1}
+\toprule
+\rowcolor{primary!80}\color{white}\bfseries #2 \\
+\midrule
+#3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+}
+
+% Template 3: Multi-page Professional Table
+\newenvironment{longprofessionaltabular}[1]
+  {\begin{longtable}{#1}
+   \toprule}
+  {\end{longtable}}
+
+% Template 4: Comparison Table with Icons
+\newcommand{\comparisontable}[4]{
+\begin{table}[H]
+\centering
+\caption{#1}
+\label{#2}
+\begin{tabularx}{\textwidth}{@{}l X X@{}}
+\toprule
+\textbf{Feature} & \textbf{#3} & \textbf{#4} \\
+\midrule
+Performance & ★★★☆☆ & ★★★★★ \\
+Ease of Use & ★★★★☆ & ★★★☆☆ \\
+Scalability & ★★★☆☆ & ★★★★★ \\
+Cost & ★★★★☆ & ★★☆☆☆ \\
+Support & ★★★☆☆ & ★★★★★ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+}
+
+% ==========================================
+% ADVANCED TCOLORBOX TEMPLATES
+% ==========================================
+
+% Theorem Box
+\tcbuselibrary{theorems,skins,breakable}
+\newtcbtheorem[number within=section]{mytheorem}{Theorem}
+  {enhanced jigsaw,
+   colback=white,
+   colframe=primary,
+   coltitle=white,
+   fonttitle=\bfseries,
+   attach boxed title to top left={yshift=-2mm, xshift=2mm},
+   boxed title style={colback=primary},
+   before skip=10pt,
+   after skip=10pt}
+  {thm}
+
+% Definition Box
+\newtcolorbox{definitionbox}[1][]{
+  enhanced jigsaw,
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  coltitle=blue!75!black,
+  fonttitle=\bfseries,
+  title=Definition,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=blue!75!black, colframe=blue!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% Example Box with Shadow
+\newtcolorbox{examplebox}[1][]{
+  enhanced,
+  colback=green!5!white,
+  colframe=green!75!black,
+  coltitle=green!75!black,
+  fonttitle=\bfseries,
+  title=Example,
+  shadow=4pt,
+  shadow color=gray!50,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=green!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% Code Display Box
+\newtcblisting{codebox}[1][]{
+  enhanced,
+  listing only,
+  colback=gray!10,
+  colframe=darkblue,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title=Code Example,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=darkblue},
+  listing options={language=Python, basicstyle=\ttfamily\small},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% Breakable Alert Boxes
+\newtcolorbox{infobox}[1][]{
+  enhanced,
+  breakable,
+  colback=cyan!5!white,
+  colframe=cyan!75!black,
+  coltitle=cyan!75!black,
+  fonttitle=\bfseries,
+  title=Information,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=cyan!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+\newtcolorbox{warningbox}[1][]{
+  enhanced,
+  breakable,
+  colback=yellow!10!white,
+  colframe=orange!75!black,
+  coltitle=orange!75!black,
+  fonttitle=\bfseries,
+  title=Warning,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=orange!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+\newtcolorbox{dangerbox}[1][]{
+  enhanced,
+  breakable,
+  colback=red!5!white,
+  colframe=red!75!black,
+  coltitle=red!75!black,
+  fonttitle=\bfseries,
+  title=Critical,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=red!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% Success Box
+\newtcolorbox{successbox}[1][]{
+  enhanced,
+  colback=green!5!white,
+  colframe=green!75!black,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title=Success,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=green!75!black},
+  before skip=10pt,
+  after skip=10pt,
+  #1
+}
+
+% ==========================================
+% IMAGE AND FIGURE TEMPLATES
+% ==========================================
+
+% Standard Professional Figure
+\newcommand{\professionalfigure}[4]{
+\begin{figure}[H]
+\centering
+\includegraphics[width=#2]{#1}
+\caption{#3}
+\label{#4}
+\end{figure}
+}
+
+% Subfigures Grid
+\newcommand{\subfiguresgrid}[5]{
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{#1}
+    \caption{#2}
+    \label{fig:sub1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{#3}
+    \caption{#4}
+    \label{fig:sub2}
+\end{subfigure}
+\caption{#5}
+\label{fig:combined}
+\end{figure}
+}
+
+% Wrap Figure with Text
+\newcommand{\wrapfigureexample}[5]{
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \includegraphics[width=0.38\textwidth]{#1}
+    \caption{#2}
+    \label{#3}
+\end{wrapfigure}
+#4
+
+\vspace{10pt}
+\noindent #5
+}
+
+% ==========================================
+% FLOWCHART AND WORKFLOW TEMPLATES
+% ==========================================
+
+% Basic Flowchart using TikZ
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, shadows}
+
+\tikzset{
+    startstop/.style={rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30},
+    process/.style={rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!20},
+    decision/.style={diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!20},
+    arrow/.style={thick,->,>=Stealth},
+    line/.style={draw, -latex'}
+}
+
+% Simple Workflow Diagram
+\newcommand{\simpleworkflow}{
+\begin{tikzpicture}[node distance=2cm, auto]
+    \node [startstop] (start) {Start};
+    \node [process, below of=start] (process1) {Process 1};
+    \node [decision, below of=process1] (decision1) {Decision?};
+    \node [process, below of=decision1, yshift=-0.5cm] (process2) {Process 2};
+    \node [startstop, below of=process2] (end) {End};
+    
+    \path [arrow] (start) -- (process1);
+    \path [arrow] (process1) -- (decision1);
+    \path [arrow] (decision1) -- node[right] {Yes} (process2);
+    \path [arrow] (decision1.east) -- ++(1,0) |- node[pos=0.25,right] {No} (process1);
+    \path [arrow] (process2) -- (end);
+\end{tikzpicture}
+}
+
+% Horizontal Process Flow
+\newcommand{\horizontalprocess}{
+\begin{tikzpicture}[
+    box/.style={rectangle, draw, fill=blue!20, text width=6em, text centered, minimum height=3em, rounded corners},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node [box] (step1) {Step 1};
+    \node [box, right=of step1] (step2) {Step 2};
+    \node [box, right=of step2] (step3) {Step 3};
+    \node [box, right=of step3] (step4) {Step 4};
+    
+    \draw [arrow] (step1) -- (step2);
+    \draw [arrow] (step2) -- (step3);
+    \draw [arrow] (step3) -- (step4);
+\end{tikzpicture}
+}
+
+% Circular Process Diagram
+\newcommand{\circularprocess}{
+\begin{tikzpicture}[
+    main node/.style={circle,fill=blue!20,draw,minimum size=2cm,font=\sffamily\Large\bfseries}
+]
+    \node[main node] (1) at (90:3) {Plan};
+    \node[main node] (2) at (0:3) {Do};
+    \node[main node] (3) at (270:3) {Check};
+    \node[main node] (4) at (180:3) {Act};
+    
+    \path[draw,thick,->,>=Stealth]
+        (1) edge [bend left] (2)
+        (2) edge [bend left] (3)
+        (3) edge [bend left] (4)
+        (4) edge [bend left] (1);
+\end{tikzpicture}
+}
+
+% Swimlane Diagram
+\newcommand{\swimlanediagram}{
+\begin{tikzpicture}[
+    lane/.style={draw, rectangle, minimum width=10cm, minimum height=2cm, anchor=north west},
+    task/.style={draw, rectangle, rounded corners, fill=blue!20, minimum width=2cm, minimum height=0.8cm, text centered}
+]
+    % Lanes
+    \node[lane] (lane1) at (0,0) {};
+    \node[lane] (lane2) at (0,-2.5) {};
+    \node[lane] (lane3) at (0,-5) {};
+    
+    % Lane labels
+    \node[anchor=east, font=\bfseries] at (-0.2,-1.25) {Department A};
+    \node[anchor=east, font=\bfseries] at (-0.2,-3.75) {Department B};
+    \node[anchor=east, font=\bfseries] at (-0.2,-6.25) {Department C};
+    
+    % Tasks
+    \node[task] (t1) at (2,0) {Task 1};
+    \node[task] (t2) at (5,0) {Task 2};
+    \node[task] (t3) at (3.5,-2.5) {Task 3};
+    \node[task] (t4) at (6.5,-2.5) {Task 4};
+    \node[task] (t5) at (5,-5) {Task 5};
+    
+    % Arrows
+    \draw[->, thick] (t1) -- (t2);
+    \draw[->, thick] (t2) -- (t3);
+    \draw[->, thick] (t3) -- (t4);
+    \draw[->, thick] (t4) -- (t5);
+\end{tikzpicture}
+}
+
+% ==========================================
+% SYSTEM ARCHITECTURE DIAGRAMS
+% ==========================================
+
+% Client-Server Architecture
+\newcommand{\clientserverarch}{
+\begin{tikzpicture}[
+    component/.style={rectangle, draw, fill=blue!10, minimum width=2.5cm, minimum height=1.5cm, text centered},
+    database/.style={cylinder, shape aspect=0.5, draw, fill=green!10, minimum width=2cm, minimum height=1.5cm, text centered},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node[component] (client1) at (0,2) {Client 1};
+    \node[component] (client2) at (3,2) {Client 2};
+    \node[component] (client3) at (6,2) {Client 3};
+    \node[component] (server) at (3,0) {Application Server};
+    \node[database] (db) at (3,-2.5) {Database};
+    
+    \draw[arrow] (client1.south) -- (server.north);
+    \draw[arrow] (client2.south) -- (server.north);
+    \draw[arrow] (client3.south) -- (server.north);
+    \draw[arrow] (server.south) -- (db.north);
+    \draw[arrow] (db.north) -- (server.south);
+\end{tikzpicture}
+}
+
+% Microservices Architecture
+\newcommand{\microservicesarch}{
+\begin{tikzpicture}[
+    service/.style={rectangle, draw, fill=orange!20, minimum width=2cm, minimum height=1cm, text centered, rounded corners},
+    gateway/.style={rectangle, draw, fill=blue!30, minimum width=3cm, minimum height=1.5cm, text centered, rounded corners},
+    arrow/.style={thick,->,>=Stealth}
+]
+    \node[gateway] (gateway) at (4,2) {API Gateway};
+    \node[service] (auth) at (0,0) {Auth Service};
+    \node[service] (user) at (2.5,0) {User Service};
+    \node[service] (order) at (5,0) {Order Service};
+    \node[service] (payment) at (7.5,0) {Payment Service};
+    \node[service] (notification) at (10,0) {Notification};
+    
+    \draw[arrow] (gateway.south) -- (auth.north);
+    \draw[arrow] (gateway.south) -- (user.north);
+    \draw[arrow] (gateway.south) -- (order.north);
+    \draw[arrow] (gateway.south) -- (payment.north);
+    \draw[arrow] (gateway.south) -- (notification.north);
+\end{tikzpicture}
+}
+
+% ==========================================
+% MIND MAP AND CONCEPT DIAGRAMS
+% ==========================================
+
+\usetikzlibrary{mindmap}
+
+\newcommand{\basicmindmap}{
+\begin{tikzpicture}[mindmap, concept color=blue!50]
+    \node[concept] {Central Concept}
+        child[concept color=green!50] {node[concept] {Branch 1}
+            child {node[concept] {Sub-branch 1.1}}
+            child {node[concept] {Sub-branch 1.2}}}
+        child[concept color=yellow!50] {node[concept] {Branch 2}
+            child {node[concept] {Sub-branch 2.1}}
+            child {node[concept] {Sub-branch 2.2}}}
+        child[concept color=red!50] {node[concept] {Branch 3}
+            child {node[concept] {Sub-branch 3.1}}
+            child {node[concept] {Sub-branch 3.2}}};
+\end{tikzpicture}
+}
+
+% ==========================================
+% TIMELINE TEMPLATES
+% ==========================================
+
+\newcommand{\horizontaltimeline}{
+\begin{tikzpicture}[
+    event/.style={rectangle, draw, fill=blue!20, minimum width=2cm, minimum height=0.8cm, text centered, rounded corners},
+    date/.style={font=\small, text=gray}
+]
+    % Timeline axis
+    \draw[thick,->] (0,0) -- (12,0);
+    
+    % Events
+    \node[event] (e1) at (1,1) {Event 1};
+    \node[event] (e2) at (4,1) {Event 2};
+    \node[event] (e3) at (7,1) {Event 3};
+    \node[event] (e4) at (10,1) {Event 4};
+    
+    % Dates
+    \node[date, below] at (1,0) {2020};
+    \node[date, below] at (4,0) {2021};
+    \node[date, below] at (7,0) {2022};
+    \node[date, below] at (10,0) {2023};
+    
+    % Connectors
+    \draw[dashed] (1,0) -- (1,0.5);
+    \draw[dashed] (4,0) -- (4,0.5);
+    \draw[dashed] (7,0) -- (7,0.5);
+    \draw[dashed] (10,0) -- (10,0.5);
+\end{tikzpicture}
+}
+
+% Vertical Timeline
+\newcommand{\verticaltimeline}{
+\begin{tikzpicture}[
+    event/.style={rectangle, draw, fill=green!20, minimum width=4cm, minimum height=1cm, text centered, rounded corners},
+    date/.style={font=\small, text=gray, anchor=east}
+]
+    % Timeline axis
+    \draw[thick] (0,0) -- (0,-8);
+    
+    % Events
+    \node[event, right] at (0.5,-1) {Milestone 1};
+    \node[event, right] at (0.5,-3) {Milestone 2};
+    \node[event, right] at (0.5,-5) {Milestone 3};
+    \node[event, right] at (0.5,-7) {Milestone 4};
+    
+    % Dates
+    \node[date] at (-0.2,-1) {Q1 2023};
+    \node[date] at (-0.2,-3) {Q2 2023};
+    \node[date] at (-0.2,-5) {Q3 2023};
+    \node[date] at (-0.2,-7) {Q4 2023};
+    
+    % Connectors
+    \draw[fill=green!50] (0,-1) circle (0.1);
+    \draw[fill=green!50] (0,-3) circle (0.1);
+    \draw[fill=green!50] (0,-5) circle (0.1);
+    \draw[fill=green!50] (0,-7) circle (0.1);
+\end{tikzpicture}
+}
+
+% ==========================================
+% GANTT CHART TEMPLATE
+% ==========================================
+
+\usepackage{pgfgantt}
+
+\newcommand{\basicgantt}{
+\begin{ganttchart}[
+    hgrid,
+    vgrid,
+    x unit=1cm,
+    y unit chart=0.6cm,
+    time slot format=isodate,
+    time slot unit=day,
+    today label=today,
+    bar/.style={fill=blue!50},
+    bar milestone/.style={fill=red!50},
+    bar label font=\small,
+    group label font=\bfseries,
+    group/.style={fill=orange!50}
+]{2024-01-01}{2024-06-30}
+    \gantttitlecalendar{year, month=name} \\
+    \ganttgroup{Phase 1}{2024-01-01}{2024-02-15} \\
+    \ganttbar{Task 1.1}{2024-01-01}{2024-01-15} \\
+    \ganttbar{Task 1.2}{2024-01-16}{2024-02-15} \\
+    \ganttgroup{Phase 2}{2024-02-16}{2024-04-30} \\
+    \ganttbar{Task 2.1}{2024-02-16}{2024-03-15} \\
+    \ganttbar{Task 2.2}{2024-03-16}{2024-04-30} \\
+    \ganttgroup{Phase 3}{2024-05-01}{2024-06-30} \\
+    \ganttbar{Task 3.1}{2024-05-01}{2024-05-31} \\
+    \ganttbar{Task 3.2}{2024-06-01}{2024-06-30}
+\end{ganttchart}
+}
+
+% ==========================================
+% MATHEMATICAL DIAGRAMS
+% ==========================================
+
+\usetikzlibrary{cd}
+
+% Commutative Diagram
+\newcommand{\commutativediagram}{
+\begin{tikzcd}[row sep=large, column sep=large]
+    A \arrow[r, "f"] \arrow[d, "g"'] & B \arrow[d, "h"] \\
+    C \arrow[r, "k"'] & D
+\end{tikzcd}
+}
+
+% Hasse Diagram
+\newcommand{\hassediagram}{
+\begin{tikzpicture}[scale=0.8]
+    \node[circle, draw, fill=white] (a) at (0,0) {$a$};
+    \node[circle, draw, fill=white] (b) at (-1,1) {$b$};
+    \node[circle, draw, fill=white] (c) at (1,1) {$c$};
+    \node[circle, draw, fill=white] (d) at (0,2) {$d$};
+    
+    \draw (a) -- (b);
+    \draw (a) -- (c);
+    \draw (b) -- (d);
+    \draw (c) -- (d);
+\end{tikzpicture}
+}
+
+% ==========================================
+% ALGORITHM AND PSEUDOCODE
+% ==========================================
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand{\samplealgorithm}{
+\begin{algorithm}[H]
+\caption{Sample Algorithm}
+\label{alg:sample}
+\begin{algorithmic}[1]
+\Procedure{Main}{$input$}
+    \State $result \gets \emptyset$
+    \For{$i \gets 1$ to $n$}
+        \If{$condition(i)$}
+            \State $result \gets result \cup \{i\}$
+        \EndIf
+    \EndFor
+    \State \Return $result$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+}
+
+% ==========================================
+% ORGANIZATION CHART
+% ==========================================
+
+\usetikzlibrary{trees}
+
+\newcommand{\orgchart}{
+\begin{tikzpicture}[
+    level distance=1.5cm,
+    level 1/.style={sibling distance=4cm},
+    level 2/.style={sibling distance=2cm},
+    every node/.style={rectangle, draw, fill=blue!10, minimum width=2cm, minimum height=0.8cm, text centered, rounded corners}
+]
+    \node {CEO}
+        child {node {CTO}
+            child {node {Dev Team}}
+            child {node {QA Team}}}
+        child {node {CFO}
+            child {node {Accounting}}
+            child {node {Finance}}}
+        child {node {COO}
+            child {node {HR}}
+            child {node {Operations}}};
+\end{tikzpicture}
+}
+
+% ==========================================
+% STATE MACHINE DIAGRAM
+% ==========================================
+
+\usetikzlibrary{automata, positioning}
+
+\newcommand{\statemachine}{
+\begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+    \node[state,initial] (q0) {$q_0$};
+    \node[state] (q1) [right=of q0] {$q_1$};
+    \node[state,accepting] (q2) [below=of q0] {$q_2$};
+    
+    \path[->]
+        (q0) edge node {a} (q1)
+        (q0) edge node {b} (q2)
+        (q1) edge node {b} (q2)
+        (q1) edge [loop above] node {a} (q1)
+        (q2) edge [loop left] node {a,b} (q2);
+\end{tikzpicture}
+}
+
+% ==========================================
+% PETRI NET DIAGRAM
+% ==========================================
+
+\usetikzlibrary{petri}
+
+\newcommand{\basicpetrinet}{
+\begin{tikzpicture}[node distance=2cm]
+    \node[place] (p1) {};
+    \node[place] (p2) [right=of p1] {};
+    \node[place] (p3) [below=of p1] {};
+    \node[transition] (t1) [below right=of p1] {};
+    
+    \draw[->] (p1) -- (t1);
+    \draw[->] (p2) -- (t1);
+    \draw[->] (t1) -- (p3);
+    
+    \node[token] at (p1) {};
+    \node[token] at (p1) [xshift=3pt] {};
+\end{tikzpicture}
+}
+
+% ==========================================
+% ENTITY RELATIONSHIP DIAGRAM
+% ==========================================
+
+\newcommand{\erdiagram}{
+\begin{tikzpicture}[
+    entity/.style={rectangle, draw, fill=blue!10, minimum width=2.5cm, minimum height=1cm, text centered},
+    relationship/.style={diamond, draw, fill=red!10, minimum width=1.5cm, minimum height=1.5cm, text centered},
+    attribute/.style={ellipse, draw, fill=green!10, minimum width=1.5cm, minimum height=0.8cm, text centered}
+]
+    \node[entity] (student) {Student};
+    \node[relationship, right=of student] (enrolls) {Enrolls};
+    \node[entity, right=of enrolls] (course) {Course};
+    
+    \node[attribute, above=of student] (sid) {ID};
+    \node[attribute, below=of student] (sname) {Name};
+    \node[attribute, above=of course] (cid) {Code};
+    \node[attribute, below=of course] (cname) {Title};
+    
+    \draw (student) -- (enrolls);
+    \draw (enrolls) -- (course);
+    \draw (student) -- (sid);
+    \draw (student) -- (sname);
+    \draw (course) -- (cid);
+    \draw (course) -- (cname);
+\end{tikzpicture}
+}
+
+% ==========================================
+% NETWORK TOPOLOGY DIAGRAM
+% ==========================================
+
+\newcommand{\networktopology}{
+\begin{tikzpicture}[
+    device/.style={rectangle, draw, fill=gray!20, minimum width=1.5cm, minimum height=1cm, text centered},
+    router/.style={circle, draw, fill=blue!30, minimum size=1.2cm, text centered},
+    switch/.style={rectangle, draw, fill=green!20, minimum width=2cm, minimum height=0.8cm, text centered},
+    connection/.style={thick, -}
+]
+    \node[router] (internet) {Internet};
+    \node[device, below=of internet] (router) {Router};
+    \node[switch, below=of router] (switch) {Switch};
+    \node[device, below left=of switch] (pc1) {PC 1};
+    \node[device, below=of switch] (pc2) {PC 2};
+    \node[device, below right=of switch] (pc3) {PC 3};
+    
+    \draw[connection] (internet) -- (router);
+    \draw[connection] (router) -- (switch);
+    \draw[connection] (switch) -- (pc1);
+    \draw[connection] (switch) -- (pc2);
+    \draw[connection] (switch) -- (pc3);
+\end{tikzpicture}
+}
+
+% ==========================================
+% VENN DIAGRAM
+% ==========================================
+
+\newcommand{\venndiagram}{
+\begin{tikzpicture}
+    \def\firstcircle{(0,0) circle (1.5cm)}
+    \def\secondcircle{(2,0) circle (1.5cm)}
+    \def\thirdcircle{(1,1.5) circle (1.5cm)}
+    
+    \fill[blue!20] \firstcircle;
+    \fill[red!20] \secondcircle;
+    \fill[green!20] \thirdcircle;
+    
+    \draw \firstcircle node[below] {$A$};
+    \draw \secondcircle node[below] {$B$};
+    \draw \thirdcircle node[above] {$C$};
+\end{tikzpicture}
+}
+
+% ==========================================
+% BAR CHART WITH PGFPLOTS
+% ==========================================
+
+\newcommand{\barchartexample}{
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    enlargelimits=0.15,
+    legend style={at={(0.5,-0.15)}, anchor=north,legend columns=-1},
+    ylabel={Value},
+    symbolic x coords={A,B,C,D,E},
+    xtick=data,
+    nodes near coords,
+    nodes near coords align={vertical},
+]
+\addplot coordinates {(A,3) (B,7) (C,5) (D,9) (E,4)};
+\addplot coordinates {(A,5) (B,4) (C,8) (D,6) (E,7)};
+\legend{Series 1, Series 2}
+\end{axis}
+\end{tikzpicture}
+}
+
+% ==========================================
+% LINE CHART WITH PGFPLOTS
+% ==========================================
+
+\newcommand{\linechartexample}{
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={Time},
+    ylabel={Value},
+    legend pos=north west,
+    grid=major,
+]
+\addplot coordinates {(1,2) (2,4) (3,3) (4,7) (5,5)};
+\addlegendentry{Trend A}
+\addplot coordinates {(1,3) (2,5) (3,6) (4,4) (5,8)};
+\addlegendentry{Trend B}
+\end{axis}
+\end{tikzpicture}
+}
+
+% ==========================================
+% PIE CHART
+% ==========================================
+
+\newcommand{\piechartexample}{
+\begin{tikzpicture}
+\pie[text=legend]{
+    25/Category A,
+    35/Category B,
+    20/Category C,
+    20/Category D
+}
+\end{tikzpicture}
+}
+
+% ==========================================
+% DOCUMENT STRUCTURE EXAMPLE
+% ==========================================
+
+\begin{document}
+
+\title{Professional LaTeX Templates Collection}
+\author{Template Repository}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+This document showcases a comprehensive collection of professional LaTeX templates including tables, tcolorbox environments, diagrams, flowcharts, and various visualization components. All templates are production-ready and can be customized for specific needs.
+\end{abstract}
+
+\tableofcontents
+
+\section{Professional Tables}
+
+\subsection{Booktabs Style Table}
+\begin{table}[H]
+\centering
+\caption{Sample Professional Table}
+\label{tab:sample}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\
+\midrule
+Temperature & 25.5 & °C \\
+Pressure & 101.3 & kPa \\
+Humidity & 65 & \% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Colored Header Table}
+\coloredheadertable{|c|c|c|}{Header 1 \& Header 2 \& Header 3}{
+Row 1, Col 1 \& Row 1, Col 2 \& Row 1, Col 3 \\
+Row 2, Col 1 \& Row 2, Col 2 \& Row 2, Col 3 \\
+Row 3, Col 1 \& Row 3, Col 2 \& Row 3, Col 3
+}
+
+\section{TColorBox Examples}
+
+\begin{mytheorem}{Pythagorean Theorem}{pythagoras}
+In a right triangle, the square of the hypotenuse equals the sum of squares of the other two sides: $a^2 + b^2 = c^2$.
+\end{mytheorem}
+
+\begin{definitionbox}
+A \textbf{prime number} is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+\end{definitionbox}
+
+\begin{examplebox}
+Consider the function $f(x) = x^2$. Its derivative is $f'(x) = 2x$.
+\end{examplebox}
+
+\begin{infobox}
+This is an information box useful for highlighting important notes or additional context.
+\end{infobox}
+
+\begin{warningbox}
+Be careful when handling sensitive data. Always follow security best practices.
+\end{warningbox}
+
+\begin{successbox}
+Operation completed successfully! All tests passed.
+\end{successbox}
+
+\section{Diagrams and Visualizations}
+
+\subsection{Workflow Diagram}
+\begin{figure}[H]
+\centering
+\simpleworkflow
+\caption{Simple Workflow Diagram}
+\label{fig:workflow}
+\end{figure}
+
+\subsection{Horizontal Process}
+\begin{figure}[H]
+\centering
+\horizontalprocess
+\caption{Horizontal Process Flow}
+\label{fig:horizontal}
+\end{figure}
+
+\subsection{Circular Process}
+\begin{figure}[H]
+\centering
+\circularprocess
+\caption{Circular Process Diagram (PDCA Cycle)}
+\label{fig:circular}
+\end{figure}
+
+\subsection{Mind Map}
+\begin{figure}[H]
+\centering
+\basicmindmap
+\caption{Concept Mind Map}
+\label{fig:mindmap}
+\end{figure}
+
+\subsection{Timeline}
+\begin{figure}[H]
+\centering
+\horizontaltimeline
+\caption{Project Timeline}
+\label{fig:timeline}
+\end{figure}
+
+\subsection{Organization Chart}
+\begin{figure}[H]
+\centering
+\orgchart
+\caption{Company Organization Structure}
+\label{fig:orgchart}
+\end{figure}
+
+\subsection{State Machine}
+\begin{figure}[H]
+\centering
+\statemachine
+\caption{Finite State Machine}
+\label{fig:statemachine}
+\end{figure}
+
+\section{Charts and Graphs}
+
+\subsection{Bar Chart}
+\begin{figure}[H]
+\centering
+\barchartexample
+\caption{Comparison Bar Chart}
+\label{fig:barchart}
+\end{figure}
+
+\subsection{Line Chart}
+\begin{figure}[H]
+\centering
+\linechartexample
+\caption{Trend Analysis}
+\label{fig:linechart}
+\end{figure}
+
+\section{Algorithm Example}
+
+\samplealgorithm
+
+As shown in \Cref{alg:sample}, the algorithm demonstrates a typical iteration pattern.
+
+\section{Conclusion}
+
+This template collection provides a solid foundation for creating professional documents with sophisticated visual elements. All components are customizable and can be adapted to specific requirements.
+
+\end{document}
