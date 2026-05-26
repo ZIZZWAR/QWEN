@@ -1,1 +1,18 @@
-Nothing should be ignored since only a LaTeX source file (.tex) was added, which is a source code file. No build artifacts, dependencies, or temporary files were included in the changes.
+```
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.idx
+*.ilg
+*.ind
+*.lof
+*.lot
+*.out
+*.toc
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf
+```
