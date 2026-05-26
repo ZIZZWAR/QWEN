@@ -1,0 +1,1411 @@
+% ============================================================================
+% COMPREHENSIVE LATEX TEMPLATE COLLECTION
+% Best Practices for Tables, Boxes, Figures, Workflows, and More
+% ============================================================================
+
+\documentclass[a4paper,12pt]{article}
+
+% ============================================================================
+% ESSENTIAL PACKAGES
+% ============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{tabulary}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{
+    shapes,
+    arrows,
+    positioning,
+    calc,
+    trees,
+    graphs,
+    graphdrawing,
+    shapes.geometric,
+    shapes.arrows,
+    shapes.multipart,
+    chains,
+    fit,
+    backgrounds,
+    shadows,
+    decorations.pathreplacing,
+    decorations.markings,
+    patterns,
+    automata,
+    matrix,
+    intersections
+}
+\usegdlibrary{trees, layered, force}
+\usepackage{tcolorbox}
+\tcbuselibrary{
+    skins,
+    breakable,
+    theorems,
+    listings,
+    xparse,
+    hooks,
+    raster
+}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{framed}
+\usepackage{mdframed}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\usepackage{smartdiagram}
+\usepackage{chemfig}
+\usepackage{pgfgantt}
+\usepackage{pgffor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{nccmath}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{draftwatermark}
+\usepackage{background}
+\usepackage{eso-pic}
+\usepackage{lipsum} % For dummy text
+
+% ============================================================================
+% PAGE SETUP
+% ============================================================================
+\geometry{
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2.5cm,
+    headheight=15pt
+}
+
+% ============================================================================
+% COLOR DEFINITIONS
+% ============================================================================
+\definecolor{primary}{RGB}{0, 51, 102}
+\definecolor{secondary}{RGB}{0, 102, 153}
+\definecolor{accent}{RGB}{255, 102, 0}
+\definecolor{lightgray}{RGB}{240, 240, 240}
+\definecolor{darkgray}{RGB}{80, 80, 80}
+\definecolor{success}{RGB}{0, 153, 0}
+\definecolor{warning}{RGB}{255, 153, 0}
+\definecolor{danger}{RGB}{204, 0, 0}
+\definecolor{info}{RGB}{0, 153, 204}
+
+% ============================================================================
+% CODE LISTINGS SETUP
+% ============================================================================
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    framerule=0.5pt,
+    rulecolor=\color{codegray}
+}
+
+\lstset{style=mystyle}
+
+% ============================================================================
+% TCOLORBOX DEFINITIONS
+% ============================================================================
+% Basic colored box
+\newtcolorbox{basicbox}[1][]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    #1
+}
+
+% Theorem-style box
+\newtcolorbox{theobox}[2][]{
+    colback=green!5!white,
+    colframe=green!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    theorem style=standard,
+    #1
+}
+
+% Example box with shadow
+\newtcolorbox{examplebox}[2][]{
+    enhanced,
+    colback=yellow!10!white,
+    colframe=yellow!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    drop shadow,
+    #1
+}
+
+% Code listing box
+\newtcblisting{codebox}[2][]{
+    enhanced,
+    colback=white,
+    colframe=gray!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    listing only,
+    listing options={style=mystyle},
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    boxrule=0.5pt,
+    #1
+}
+
+% Breakable box for long content
+\newtcolorbox{breakablebox}[2][]{
+    enhanced jigsaw,
+    breakable,
+    colback=white,
+    colframe=primary,
+    fonttitle=\bfseries,
+    title=#2,
+    sharp corners,
+    rounded corners=southeast,
+    arc is angular,
+    arc=3mm,
+    underlay first={
+        \path[tcolorframe] ([xshift=2mm]frame.north west) -- ([xshift=2mm]frame.north east);
+    },
+    underlay middle={
+        \path[tcolorframe] ([xshift=2mm]frame.north west) -- ([xshift=2mm]frame.north east);
+        \path[tcolorframe] ([xshift=2mm]frame.south west) -- ([xshift=2mm]frame.south east);
+    },
+    underlay last={
+        \path[tcolorframe] ([xshift=2mm]frame.south west) -- ([xshift=2mm]frame.south east);
+    },
+    #1
+}
+
+% Info/Warning/Danger boxes
+\newtcolorbox{infobox}[2][]{
+    colback=info!10!white,
+    colframe=info,
+    fonttitle=\bfseries,
+    title=#2,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={
+        colback=info,
+        colframe=info,
+        arc=2mm
+    },
+    #1
+}
+
+\newtcolorbox{warningbox}[2][]{
+    colback=warning!10!white,
+    colframe=warning,
+    fonttitle=\bfseries,
+    title=#2,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={
+        colback=warning,
+        colframe=warning,
+        arc=2mm
+    },
+    #1
+}
+
+\newtcolorbox{dangerbox}[2][]{
+    colback=danger!10!white,
+    colframe=danger,
+    fonttitle=\bfseries,
+    title=#2,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={
+        colback=danger,
+        colframe=danger,
+        arc=2mm
+    },
+    #1
+}
+
+% Side-by-side boxes (raster)
+\newtcbinputlisting{\syntaxbox}[3][]{
+    listing only,
+    listing options={#2},
+    title=#3,
+    colback=white,
+    colframe=darkgray,
+    fonttitle=\bfseries,
+    #1
+}
+
+% ============================================================================
+% TABLE TEMPLATES
+% ============================================================================
+% Professional table with booktabs
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Colored row command
+\newcommand{\hrowcolor}[1]{\rowcolor{#1}}
+
+% Alternating row colors
+\usepackage{etoolbox}
+\newcounter{tablerow}
+\newcommand{\alternaterow}{%
+    \stepcounter{tablerow}%
+    \ifodd\value{tablerow}%
+        \rowcolor{lightgray}%
+    \fi%
+}
+
+% ============================================================================
+% FIGURE AND IMAGE SETUP
+% ============================================================================
+\captionsetup{
+    font=small,
+    labelfont=bf,
+    labelsep=colon,
+    justification=justified,
+    singlelinecheck=false
+}
+
+% ============================================================================
+% TIKZ STYLES FOR DIAGRAMS
+% ============================================================================
+\tikzset{
+    % Basic node styles
+    block/.style={
+        rectangle,
+        draw,
+        fill=blue!10,
+        text width=6em,
+        text centered,
+        rounded corners,
+        minimum height=3em,
+        drop shadow
+    },
+    line/.style={
+        draw,
+        -latex',
+        thick
+    },
+    cloud/.style={
+        draw,
+        ellipse,
+        fill=red!10,
+        minimum height=2em,
+        drop shadow
+    },
+    decision/.style={
+        diamond,
+        draw,
+        fill=green!10,
+        text width=4.5em,
+        text centered,
+        inner sep=0pt,
+        drop shadow
+    },
+    startstop/.style={
+        rectangle,
+        rounded corners,
+        minimum width=3cm,
+        minimum height=1cm,
+        text centered,
+        draw=black,
+        fill=red!10,
+        drop shadow
+    },
+    process/.style={
+        rectangle,
+        minimum width=3cm,
+        minimum height=1cm,
+        text centered,
+        draw=black,
+        fill=blue!10,
+        drop shadow
+    },
+    io/.style={
+        trapezium,
+        trapezium left angle=70,
+        trapezium right angle=110,
+        minimum width=3cm,
+        minimum height=1cm,
+        text centered,
+        draw=black,
+        fill=green!10,
+        drop shadow
+    },
+    arrow/.style={
+        thick,
+        ->,
+        >=stealth
+    },
+    dashedarrow/.style={
+        thick,
+        ->,
+        >=stealth,
+        dashed
+    },
+    bidirectional/.style={
+        thick,
+        <->,
+        >=stealth
+    }
+}
+
+% ============================================================================
+% DOCUMENT METADATA
+% ============================================================================
+\title{\textbf{Comprehensive LaTeX Template Collection}\\
+\large Best Practices for Tables, Boxes, Figures, Workflows \& Schemas}
+\author{LaTeX Template Repository}
+\date{\today}
+
+% ============================================================================
+% BEGIN DOCUMENT
+% ============================================================================
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document provides a comprehensive collection of LaTeX templates and best 
+practices for creating professional documents. It includes examples of tables, 
+colored boxes (tcolorbox), figures, workflows, schemas, code listings, and more.
+All templates are ready to use and can be customized for your specific needs.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ============================================================================
+% SECTION 1: TABLES
+% ============================================================================
+\section{Professional Table Templates}
+
+\subsection{Basic Professional Table with Booktabs}
+\begin{table}[H]
+\centering
+\caption{Simple Professional Table}
+\label{tab:simple}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Column 1} & \textbf{Column 2} & \textbf{Column 3} \\
+\midrule
+Row 1, Col 1 & Row 1, Col 2 & Row 1, Col 3 \\
+Row 2, Col 1 & Row 2, Col 2 & Row 2, Col 3 \\
+Row 3, Col 1 & Row 3, Col 2 & Row 3, Col 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Table with Colored Rows}
+\begin{table}[H]
+\centering
+\caption{Table with Alternating Row Colors}
+\label{tab:colored}
+\begin{tabular}{lcc}
+\toprule
+\rowcolor{primary!20}
+\textbf{Header 1} & \textbf{Header 2} & \textbf{Header 3} \\
+\midrule
+\rowcolor{lightgray}
+Data 1 & Data 2 & Data 3 \\
+Data 4 & Data 5 & Data 6 \\
+\rowcolor{lightgray}
+Data 7 & Data 8 & Data 9 \\
+Data 10 & Data 11 & Data 12 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Table with Multi-row and Multi-column}
+\begin{table}[H]
+\centering
+\caption{Complex Table with Merged Cells}
+\label{tab:complex}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\rowcolor{secondary!30}
+\textbf{Category} & \multicolumn{3}{c|}{\textbf{Measurements}} \\
+\cline{2-4}
+\rowcolor{secondary!30}
+& \textbf{Min} & \textbf{Max} & \textbf{Avg} \\
+\hline
+\multirow{2}{*}{Group A} & 10 & 50 & 30 \\
+\cline{2-4}
+& 15 & 55 & 35 \\
+\hline
+\multirow{2}{*}{Group B} & 20 & 60 & 40 \\
+\cline{2-4}
+& 25 & 65 & 45 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Wide Table with Tabularx}
+\begin{table}[H]
+\centering
+\caption{Auto-width Table Using Tabularx}
+\label{tab:wide}
+\begin{tabularx}{\textwidth}{|X|X|X|}
+\hline
+\rowcolor{accent!20}
+\textbf{Long Column Header 1} & \textbf{Long Column Header 2} & \textbf{Long Column Header 3} \\
+\hline
+This is a long text that will automatically wrap to multiple lines within the cell & 
+Another long description that demonstrates the automatic text wrapping feature & 
+Final column with extensive content that spans multiple lines \\
+\hline
+Short text & Medium length text & More content here \\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Long Table (Multi-page)}
+\begin{longtable}{lcc}
+\caption{Long Table That Spans Multiple Pages} \\
+\label{tab:long} \\
+\toprule
+\textbf{ID} & \textbf{Description} & \textbf{Value} \\
+\midrule
+\endfirsthead
+
+\multicolumn{3}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{ID} & \textbf{Description} & \textbf{Value} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r}{{Continued on next page}} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+1 & Item description 1 & 100 \\
+2 & Item description 2 & 200 \\
+3 & Item description 3 & 300 \\
+4 & Item description 4 & 400 \\
+5 & Item description 5 & 500 \\
+6 & Item description 6 & 600 \\
+7 & Item description 7 & 700 \\
+8 & Item description 8 & 800 \\
+9 & Item description 9 & 900 \\
+10 & Item description 10 & 1000 \\
+% Add more rows as needed
+\end{longtable}
+
+\subsection{Table with Mathematical Content}
+\begin{table}[H]
+\centering
+\caption{Table with Mathematical Expressions}
+\label{tab:math}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Function} & \textbf{Derivative} & \textbf{Integral} \\
+\midrule
+$f(x) = x^2$ & $f'(x) = 2x$ & $\int x^2 dx = \frac{x^3}{3}$ \\
+$f(x) = \sin(x)$ & $f'(x) = \cos(x)$ & $\int \sin(x) dx = -\cos(x)$ \\
+$f(x) = e^x$ & $f'(x) = e^x$ & $\int e^x dx = e^x$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+% SECTION 2: TCOLORBOX EXAMPLES
+% ============================================================================
+\section{Colored Box Templates (tcolorbox)}
+
+\subsection{Basic Colored Box}
+\begin{basicbox}[Title of the Box]
+This is a basic colored box with default styling. You can put any content here,
+including text, equations, lists, and even other environments.
+\end{basicbox}
+
+\subsection{Theorem-style Box}
+\begin{theobox}{Pythagorean Theorem}
+In a right triangle, the square of the hypotenuse equals the sum of squares 
+of the other two sides:
+\[ a^2 + b^2 = c^2 \]
+\end{theobox}
+
+\subsection{Example Box with Shadow}
+\begin{examplebox}{Important Example}
+This box has a drop shadow effect and uses a yellow color scheme. It's perfect
+for highlighting important examples or notes in your document.
+\begin{itemize}
+    \item Feature 1: Drop shadow
+    \item Feature 2: Custom colors
+    \item Feature 3: Rounded corners
+\end{itemize}
+\end{examplebox}
+
+\subsection{Code Listing Box}
+\begin{codebox}{Python Code Example}
+def fibonacci(n):
+    """Generate Fibonacci sequence up to n terms"""
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    
+    sequence = [0, 1]
+    while len(sequence) < n:
+        next_val = sequence[-1] + sequence[-2]
+        sequence.append(next_val)
+    
+    return sequence
+
+print(fibonacci(10))
+\end{codebox}
+
+\subsection{Breakable Box for Long Content}
+\begin{breakablebox}{Long Content Box}
+This box can break across pages seamlessly. It's ideal for long theorems, 
+proofs, or extended discussions that might span multiple pages.
+
+\lipsum[1]
+
+The box maintains its styling even when broken across pages, with visual 
+indicators showing the continuation.
+
+\lipsum[2]
+\end{breakablebox}
+
+\subsection{Info/Warning/Danger Boxes}
+\begin{infobox}{Information}
+This is an information box styled in blue. Use it for general information, 
+tips, or helpful notes that readers should be aware of.
+\end{infobox}
+
+\begin{warningbox}{Warning}
+This is a warning box styled in orange/yellow. Use it to alert readers about 
+potential issues, caveats, or important considerations.
+\end{warningbox}
+
+\begin{dangerbox}{Danger/Critical}
+This is a danger box styled in red. Use it for critical warnings, errors, or 
+information that requires immediate attention.
+\end{dangerbox}
+
+% ============================================================================
+% SECTION 3: FIGURES AND IMAGES
+% ============================================================================
+\section{Figure and Image Templates}
+
+\subsection{Basic Figure with Caption}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.8]
+    \draw[fill=blue!20] (0,0) rectangle (4,3);
+    \node at (2,1.5) {Placeholder Image};
+    \draw[->, thick] (0,0) -- (5,0) node[right] {$x$};
+    \draw[->, thick] (0,0) -- (0,4) node[above] {$y$};
+\end{tikzpicture}
+\caption{A simple TikZ figure with axes}
+\label{fig:basic}
+\end{figure}
+
+\subsection{Subfigures}
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+    \draw[fill=red!20] (0,0) circle (1.5);
+    \node at (0,0) {Figure A};
+\end{tikzpicture}
+\caption{First subfigure}
+\label{fig:sub1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+    \draw[fill=green!20] (0,0) rectangle (3,2);
+    \node at (1.5,1) {Figure B};
+\end{tikzpicture}
+\caption{Second subfigure}
+\label{fig:sub2}
+\end{subfigure}
+\caption{Multiple subfigures in one figure environment}
+\label{fig:combined}
+\end{figure}
+
+\subsection{Wrapped Figure}
+\begin{wrapfigure}{r}{0.5\textwidth}
+\centering
+\begin{tikzpicture}
+    \draw[fill=orange!20] (0,0) -- (2,0) -- (2,2) -- (0,2) -- cycle;
+    \node at (1,1) {Wrapped};
+\end{tikzpicture}
+\caption{A wrapped figure}
+\label{fig:wrapped}
+\end{wrapfigure}
+
+\lipsum[3]
+
+This text wraps around the figure on the right side. Wrapped figures are useful
+when you want to integrate images more naturally into the text flow.
+
+% ============================================================================
+% SECTION 4: WORKFLOW DIAGRAMS
+% ============================================================================
+\section{Workflow and Process Diagrams}
+
+\subsection{Simple Flowchart}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm, auto]
+    \node [startstop] (start) {Start};
+    \node [process, below of=start] (process1) {Process 1};
+    \node [decision, below of=process1] (decision) {Decision?};
+    \node [process, below of=decision, yshift=-1cm] (process2) {Process 2};
+    \node [startstop, below of=process2] (end) {End};
+    \node [process, right of=decision, xshift=3cm] (process3) {Process 3};
+    
+    \draw [arrow] (start) -- (process1);
+    \draw [arrow] (process1) -- (decision);
+    \draw [arrow] (decision) -- node[right] {Yes} (process2);
+    \draw [arrow] (decision) -- node[above] {No} (process3);
+    \draw [arrow] (process3) |- (process1);
+    \draw [arrow] (process2) -- (end);
+\end{tikzpicture}
+\caption{Simple workflow flowchart}
+\label{fig:flowchart}
+\end{figure}
+
+\subsection{Horizontal Process Flow}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    node distance=2.5cm,
+    block/.style={
+        rectangle,
+        draw,
+        fill=blue!10,
+        text width=5em,
+        text centered,
+        rounded corners,
+        minimum height=3em
+    },
+    arrow/.style={
+        thick,
+        ->,
+        >=stealth
+    }
+]
+    \node [block] (init) {Initialize};
+    \node [block, right of=init] (identify) {Identify};
+    \node [block, right of=identify] (evaluate) {Evaluate};
+    \node [block, right of=evaluate] (update) {Update};
+    \node [block, right of=update] (final) {Finalize};
+    
+    \draw [arrow] (init) -- (identify);
+    \draw [arrow] (identify) -- (evaluate);
+    \draw [arrow] (evaluate) -- (update);
+    \draw [arrow] (update) -- (final);
+\end{tikzpicture}
+\caption{Horizontal process flow diagram}
+\label{fig:horizontal}
+\end{figure}
+
+\subsection{Circular Workflow}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    \def\radius{2.5cm}
+    \def\n{6}
+    
+    % Draw nodes in a circle
+    \foreach \i in {1,...,\n} {
+        \node[
+            block,
+            minimum size=2cm
+        ] (node\i) at ({360/\n * (\i - 1)}:\radius) {Step \i};
+    }
+    
+    % Draw arrows between nodes
+    \foreach \i [evaluate=\i as \next using {int(mod(\i, \n) + 1)}] in {1,...,\n} {
+        \draw[arrow] (node\i) -- (node\next);
+    }
+\end{tikzpicture}
+\caption{Circular workflow diagram}
+\label{fig:circular}
+\end{figure}
+
+\subsection{Swimlane Diagram}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    lane/.style={
+        draw,
+        minimum width=10cm,
+        minimum height=2cm,
+        anchor=north west
+    },
+    task/.style={
+        draw,
+        fill=blue!20,
+        minimum width=2cm,
+        minimum height=0.8cm,
+        text centered
+    }
+]
+    % Swimlanes
+    \node[lane] (lane1) at (0,0) {Department A};
+    \node[lane] (lane2) at (0,-2) {Department B};
+    \node[lane] (lane3) at (0,-4) {Department C};
+    
+    % Tasks in lane 1
+    \node[task] (t1) at (2,0) {Task 1};
+    \node[task] (t4) at (6,0) {Task 4};
+    
+    % Tasks in lane 2
+    \node[task] (t2) at (4,-2) {Task 2};
+    \node[task] (t5) at (8,-2) {Task 5};
+    
+    % Tasks in lane 3
+    \node[task] (t3) at (6,-4) {Task 3};
+    \node[task] (t6) at (10,-4) {Task 6};
+    
+    % Arrows
+    \draw[arrow] (t1) -- (t2);
+    \draw[arrow] (t2) -- (t3);
+    \draw[arrow] (t3) -- (t4);
+    \draw[arrow] (t4) -- (t5);
+    \draw[arrow] (t5) -- (t6);
+\end{tikzpicture}
+\caption{Swimlane workflow diagram}
+\label{fig:swimlane}
+\end{figure}
+
+% ============================================================================
+% SECTION 5: SCHEMAS AND ARCHITECTURE DIAGRAMS
+% ============================================================================
+\section{Schema and Architecture Diagrams}
+
+\subsection{System Architecture}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    component/.style={
+        rectangle,
+        draw,
+        fill=blue!10,
+        minimum width=3cm,
+        minimum height=1.5cm,
+        text centered
+    },
+    database/.style={
+        cylinder,
+        shape aspect=0.5,
+        draw,
+        fill=green!10,
+        minimum width=2cm,
+        minimum height=1.5cm,
+        text centered
+    },
+    user/.style={
+        circle,
+        draw,
+        fill=orange!10,
+        minimum size=1.5cm
+    }
+]
+    % Nodes
+    \node[user] (user) {User};
+    \node[component, right of=user, xshift=2cm] (frontend) {Frontend};
+    \node[component, right of=frontend, xshift=2cm] (backend) {Backend};
+    \node[database, below of=backend, yshift=-1cm] (db) {Database};
+    \node[component, above of=backend, yshift=1cm] (api) {API Gateway};
+    
+    % Connections
+    \draw[arrow] (user) -- (frontend);
+    \draw[arrow] (frontend) -- (backend);
+    \draw[arrow] (backend) -- (db);
+    \draw[arrow] (backend) -- (api);
+    \draw[arrow] (api) -- (backend);
+\end{tikzpicture}
+\caption{System architecture diagram}
+\label{fig:architecture}
+\end{figure}
+
+\subsection{Entity Relationship Diagram}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    entity/.style={
+        rectangle,
+        draw,
+        minimum width=3cm,
+        minimum height=1cm,
+        text centered
+    },
+    relationship/.style={
+        diamond,
+        draw,
+        fill=yellow!20,
+        minimum width=1.5cm,
+        minimum height=1.5cm,
+        text centered
+    }
+]
+    \node[entity] (student) {Student};
+    \node[relationship, right of=student, xshift=3cm] (enrolls) {Enrolls};
+    \node[entity, right of=enrolls, xshift=3cm] {Course};
+    
+    \node[entity, below of=student, yshift=-2cm] (professor) {Professor};
+    \node[relationship, right of=professor, xshift=3cm] (teaches) {Teaches};
+    
+    \draw[arrow] (student) -- (enrolls);
+    \draw[arrow] (enrolls) -- (3.5,0) node[right] {Course};
+    \draw[arrow] (professor) -- (teaches);
+    \draw[arrow] (teaches) -- (3.5,-2) node[right] {Course};
+\end{tikzpicture}
+\caption{Entity Relationship Diagram}
+\label{fig:erd}
+\end{figure}
+
+\subsection{Network Topology}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    server/.style={
+        rectangle,
+        draw,
+        fill=blue!20,
+        minimum width=1.5cm,
+        minimum height=2cm,
+        text centered
+    },
+    router/.style={
+        circle,
+        draw,
+        fill=green!20,
+        minimum size=1cm
+    },
+    client/.style={
+        circle,
+        draw,
+        fill=orange!20,
+        minimum size=0.8cm
+    }
+]
+    % Core router
+    \node[router] (core) {Core};
+    
+    % Distribution routers
+    \foreach \i in {1,2,3} {
+        \node[router, below left of=core, xshift=-2cm*\i, yshift=-2cm] (dist\i) {D\i};
+        \draw[thick] (core) -- (dist\i);
+    }
+    
+    % Servers
+    \node[server, above of=core, yshift=1.5cm] (srv1) {Server 1};
+    \node[server, right of=core, xshift=2cm] (srv2) {Server 2};
+    \draw[thick] (core) -- (srv1);
+    \draw[thick] (core) -- (srv2);
+    
+    % Clients
+    \foreach \i in {1,2,3} {
+        \node[client, below of=dist\i, yshift=-1cm] (cli\i) {C\i};
+        \draw[thick] (dist\i) -- (cli\i);
+    }
+\end{tikzpicture}
+\caption{Network topology diagram}
+\label{fig:network}
+\end{figure}
+
+% ============================================================================
+% SECTION 6: ADVANCED TIKZ DIAGRAMS
+% ============================================================================
+\section{Advanced TikZ Diagrams}
+
+\subsection{Mind Map}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    mindmap,
+    concept color=blue,
+    text=white,
+    level 1 concept/.append style={
+        sibling angle=120,
+        font=\small
+    },
+    level 2 concept/.append style={
+        sibling angle=60,
+        font=\footnotesize
+    }
+]
+    \node[concept] {Main Topic}
+        child {
+            node[concept] {Subtopic 1}
+            child { node[concept] {Detail 1.1} }
+            child { node[concept] {Detail 1.2} }
+        }
+        child {
+            node[concept] {Subtopic 2}
+            child { node[concept] {Detail 2.1} }
+            child { node[concept] {Detail 2.2} }
+        }
+        child {
+            node[concept] {Subtopic 3}
+            child { node[concept] {Detail 3.1} }
+            child { node[concept] {Detail 3.2} }
+        };
+\end{tikzpicture}
+\caption{Mind map diagram}
+\label{fig:mindmap}
+\end{figure}
+
+\subsection{Timeline}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    timeline/.style={
+        line width=2pt,
+        blue
+    },
+    event/.style={
+        circle,
+        fill=blue,
+        inner sep=3pt
+    },
+    label/.style={
+        text width=2cm,
+        align=center,
+        font=\small
+    }
+]
+    % Timeline
+    \draw[timeline] (0,0) -- (10,0);
+    
+    % Events
+    \foreach \x/\year/\desc in {
+        0/2020/Start,
+        2/2021/Phase 1,
+        5/2022/Phase 2,
+        8/2023/Phase 3,
+        10/2024/Complete
+    } {
+        \node[event] at (\x,0) {};
+        \node[label, below] at (\x,-0.5) {\year};
+        \node[label, above] at (\x,0.5) {\desc};
+    }
+\end{tikzpicture}
+\caption{Project timeline}
+\label{fig:timeline}
+\end{figure}
+
+\subsection{Gantt Chart}
+\begin{figure}[H]
+\centering
+\begin{ganttchart}[
+    hgrid,
+    vgrid,
+    x unit=1cm,
+    y unit chart=0.7cm,
+    time slot format=isodate,
+    time slot unit=week,
+    canvas/.style={
+        draw=none
+    },
+    title/.style={
+        fill=blue!20,
+        font=\bfseries
+    },
+    bar/.style={
+        fill=blue!50,
+        rounded corners
+    },
+    bar incomplete/.style={
+        fill=orange!50
+    },
+    bar milestone/.style={
+        fill=red,
+        shape=diamond
+    }
+]{2024-01-01}{2024-12-31}
+    \gantttitle{2024}{12} \\
+    \gantttitlelist{1,...,12}{1} \\
+    \ganttgroup{Planning}{2024-01-01}{2024-02-28} \\
+    \ganttbar{Research}{2024-01-01}{2024-01-31} \\
+    \ganttbar{Design}{2024-02-01}{2024-02-28} \\
+    \ganttgroup{Development}{2024-03-01}{2024-08-31} \\
+    \ganttbar{Implementation}{2024-03-01}{2024-06-30} \\
+    \ganttbar{Testing}{2024-07-01}{2024-08-31} \\
+    \ganttgroup{Deployment}{2024-09-01}{2024-12-31} \\
+    \ganttbar{Launch}{2024-09-01}{2024-09-30} \\
+    \ganttmilestone{Review}{2024-10-15} \\
+    \ganttbar{Optimization}{2024-11-01}{2024-12-31}
+\end{ganttchart}
+\caption{Project Gantt chart}
+\label{fig:gantt}
+\end{figure}
+
+\subsection{Petri Net}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    place/.style={
+        circle,
+        draw,
+        minimum size=1cm,
+        fill=blue!10
+    },
+    transition/.style={
+        rectangle,
+        draw,
+        minimum width=0.5cm,
+        minimum height=1cm,
+        fill=green!10
+    },
+    token/.style={
+        circle,
+        fill=black,
+        minimum size=0.3cm
+    }
+]
+    % Places
+    \node[place] (p1) at (0,0) {P1};
+    \node[place] (p2) at (4,0) {P2};
+    \node[place] (p3) at (0,-3) {P3};
+    \node[place] (p4) at (4,-3) {P4};
+    
+    % Transitions
+    \node[transition] (t1) at (2,0) {T1};
+    \node[transition] (t2) at (2,-3) {T2};
+    
+    % Arcs
+    \draw[arrow] (p1) -- (t1);
+    \draw[arrow] (t1) -- (p2);
+    \draw[arrow] (p2) |- (t2);
+    \draw[arrow] (t2) -- (p3);
+    \draw[arrow] (p3) -| (t1);
+    \draw[arrow] (t2) -- (p4);
+    
+    % Tokens
+    \node[token] at (p1.center) {};
+    \node[token] at (p1.center) [xshift=0.2cm] {};
+\end{tikzpicture}
+\caption{Petri net diagram}
+\label{fig:petri}
+\end{figure}
+
+% ============================================================================
+% SECTION 7: MATHEMATICAL DIAGRAMS
+% ============================================================================
+\section{Mathematical Diagrams}
+
+\subsection{Commutative Diagram}
+\begin{figure}[H]
+\centering
+\begin{tikzcd}[
+    row sep=2cm,
+    column sep=2cm,
+    arrows={-latex}
+]
+    A \arrow[r, "f"] \arrow[d, "g"'] & B \arrow[d, "h"] \\
+    C \arrow[r, "k"'] & D
+\end{tikzcd}
+\caption{Commutative diagram}
+\label{fig:commutative}
+\end{figure}
+
+\subsection{Hasse Diagram}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    every node/.style={
+        circle,
+        draw,
+        fill=white,
+        minimum size=0.8cm
+    }
+]
+    \node (top) {1};
+    \node[below left of=top] (a) {a};
+    \node[below right of=top] (b) {b};
+    \node[below of=a, xshift=1.5cm] (c) {c};
+    \node[below of=c] (bottom) {0};
+    
+    \draw (bottom) -- (a);
+    \draw (bottom) -- (b);
+    \draw (bottom) -- (c);
+    \draw (a) -- (top);
+    \draw (b) -- (top);
+    \draw (c) -- (top);
+\end{tikzpicture}
+\caption{Hasse diagram}
+\label{fig:hasse}
+\end{figure}
+
+% ============================================================================
+% SECTION 8: CHEMICAL AND MOLECULAR DIAGRAMS
+% ============================================================================
+\section{Chemical Structures}
+
+\subsection{Simple Molecule}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    \node[draw, regular polygon, regular polygon sides=6, minimum size=3cm] (hex) {};
+    \foreach \i in {1,...,6} {
+        \fill (hex.corner \i) circle (2pt);
+    }
+    \node at (0,0) {Benzene};
+\end{tikzpicture}
+\caption{Hexagonal molecular structure}
+\label{fig:molecule}
+\end{figure}
+
+% ============================================================================
+% SECTION 9: ALGORITHMS AND PSEUDOCODE
+% ============================================================================
+\section{Algorithm Templates}
+
+\subsection{Algorithm using algorithm2e style}
+\begin{codebox}{Binary Search Algorithm}
+function binary_search(arr, target):
+    low = 0
+    high = length(arr) - 1
+    
+    while low <= high:
+        mid = (low + high) // 2
+        
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    
+    return -1
+\end{codebox}
+
+% ============================================================================
+% SECTION 10: ORGANIZATIONAL CHARTS
+% ============================================================================
+\section{Organizational Charts}
+
+\subsection{Tree Structure Org Chart}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    level distance=1.5cm,
+    level 1/.style={sibling distance=4cm},
+    level 2/.style={sibling distance=2cm},
+    every node/.style={
+        rectangle,
+        draw,
+        fill=blue!10,
+        minimum width=2cm,
+        minimum height=0.8cm,
+        text centered
+    }
+]
+    \node {CEO}
+        child {
+            node {CTO}
+            child { node {Dev Team} }
+            child { node {QA Team} }
+        }
+        child {
+            node {CFO}
+            child { node {Accounting} }
+            child { node {Finance} }
+        }
+        child {
+            node {COO}
+            child { node {Operations} }
+            child { node {HR} }
+        };
+\end{tikzpicture}
+\caption{Organizational chart}
+\label{fig:orgchart}
+\end{figure}
+
+% ============================================================================
+% SECTION 11: STATE MACHINES
+% ============================================================================
+\section{State Machines and Automata}
+
+\subsection{Finite State Machine}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    state/.style={
+        circle,
+        draw,
+        minimum size=1.2cm,
+        fill=blue!10
+    },
+    initial/.style={
+        initial,
+        initial text=
+    }
+]
+    \node[state, initial] (q0) {q$_0$};
+    \node[state, right of=q0] (q1) {q$_1$};
+    \node[state, right of=q1, accepting] (q2) {q$_2$};
+    
+    \path[->]
+        (q0) edge[bend left] node[above] {a} (q1)
+        (q1) edge[bend left] node[below] {b} (q0)
+        (q1) edge[bend left] node[above] {a} (q2)
+        (q2) edge[loop above] node {a,b} (q2);
+\end{tikzpicture}
+\caption{Finite state machine}
+\label{fig:fsm}
+\end{figure}
+
+% ============================================================================
+% SECTION 12: COMPARISON TABLES
+% ============================================================================
+\section{Comparison Tables}
+
+\subsection{Feature Comparison Matrix}
+\begin{table}[H]
+\centering
+\caption{Feature Comparison Matrix}
+\label{tab:comparison}
+\begin{tabular}{lcccc}
+\toprule
+\rowcolor{primary!20}
+\textbf{Feature} & \textbf{Option A} & \textbf{Option B} & \textbf{Option C} & \textbf{Option D} \\
+\midrule
+Performance & \cellcolor{green!20}High & \cellcolor{yellow!20}Medium & \cellcolor{red!20}Low & \cellcolor{green!20}High \\
+Cost & \cellcolor{red!20}\$ \$ \$ & \cellcolor{yellow!20}\$ \$ & \cellcolor{green!20}\$ & \cellcolor{yellow!20}\$ \$ \\
+Scalability & \cellcolor{green!20}Excellent & \cellcolor{green!20}Good & \cellcolor{yellow!20}Fair & \cellcolor{green!20}Excellent \\
+Support & \cellcolor{green!20}24/7 & \cellcolor{yellow!20}Business hrs & \cellcolor{red!20}Limited & \cellcolor{green!20}24/7 \\
+Ease of Use & \cellcolor{yellow!20}Medium & \cellcolor{green!20}Easy & \cellcolor{green!20}Very Easy & \cellcolor{yellow!20}Medium \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+% SECTION 13: CUSTOM ENVIRONMENTS
+% ============================================================================
+\section{Custom Environment Examples}
+
+\subsection{Proof Environment}
+\begin{breakablebox}{Proof}
+\textbf{Theorem:} The sum of two even numbers is even.
+
+\textbf{Proof:} Let $a$ and $b$ be even numbers. Then $a = 2m$ and $b = 2n$ 
+for some integers $m$ and $n$. Therefore:
+\[ a + b = 2m + 2n = 2(m + n) \]
+Since $m + n$ is an integer, $a + b$ is divisible by 2, hence even. \qed
+\end{breakablebox}
+
+% ============================================================================
+% SECTION 14: REFERENCES AND CITATIONS
+% ============================================================================
+\section{Cross-referencing Examples}
+
+As shown in \cref{tab:simple}, tables can be easily referenced. 
+The flowchart in \cref{fig:flowchart} demonstrates process flows.
+Equations like $E = mc^2$ can be inline or displayed:
+\begin{equation}
+    \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+    \label{eq:gaussian}
+\end{equation}
+See \cref{eq:gaussian} for the Gaussian integral.
+
+% ============================================================================
+% CONCLUSION
+% ============================================================================
+\section{Conclusion}
+
+This template collection provides a comprehensive set of LaTeX examples for:
+\begin{itemize}
+    \item Professional tables with various styling options
+    \item Colored boxes using tcolorbox for highlights and annotations
+    \item Figures and images with proper captions and subfigures
+    \item Workflow diagrams and process flows
+    \item System architecture and schema diagrams
+    \item Advanced TikZ graphics including mind maps and timelines
+    \item Mathematical diagrams and commutative diagrams
+    \item Organizational charts and tree structures
+    \item State machines and automata
+    \item Code listings with syntax highlighting
+\end{itemize}
+
+All templates are customizable and can be adapted to your specific document 
+requirements. Mix and match these examples to create professional-quality 
+documents.
+
+% ============================================================================
+% APPENDIX
+% ============================================================================
+\appendix
+\section{Package Reference}
+
+\begin{table}[H]
+\centering
+\caption{Essential LaTeX Packages Used}
+\label{tab:packages}
+\begin{tabular}{ll}
+\toprule
+\textbf{Package} & \textbf{Purpose} \\
+\midrule
+\texttt{tikz} & Creating vector graphics \\
+\texttt{tcolorbox} & Colored text boxes \\
+\texttt{booktabs} & Professional tables \\
+\texttt{graphicx} & Including images \\
+\texttt{listings}/\texttt{minted} & Code listings \\
+\texttt{caption}/\texttt{subcaption} & Figure captions \\
+\texttt{pgfgantt} & Gantt charts \\
+\texttt{tikz-cd} & Commutative diagrams \\
+\texttt{smartdiagram} & Quick diagrams \\
+\texttt{hyperref} & Hyperlinks \\
+\texttt{cleveref} & Smart cross-references \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+% BIBLIOGRAPHY (Example)
+% ============================================================================
+% \bibliographystyle{plain}
+% \bibliography{references}
+
+\end{document}
