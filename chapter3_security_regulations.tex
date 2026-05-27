@@ -15,7 +15,6 @@
 \usepackage{array}
 \usepackage{colortbl}
 \usepackage{multirow}
-\usepackage{tcolorbox}
 \usepackage[most]{tcolorbox}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -31,19 +30,38 @@
 \usepackage{titlesec}
 \usepackage{csquotes}
 \usepackage{pgfgantt}
-\usetikzlibrary{shapes.geometric, arrows.meta, positioning, shadows}
+\usepackage{background}
+\usepackage{eso-pic}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, shadows, calc, decorations.pathmorphing, patterns}
 \usetikzlibrary{cd}
 \usetikzlibrary{mindmap}
 
-% Page geometry
-\geometry{margin=1in}
+% Page geometry with improved margins
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm, headheight=15pt}
 
-% Color definitions
+% Enhanced color definitions with gradient support
 \definecolor{primary}{RGB}{0,102,204}
+\definecolor{primarydark}{RGB}{0,51,102}
 \definecolor{secondary}{RGB}{0,153,76}
 \definecolor{accent}{RGB}{255,102,0}
 \definecolor{lightgray}{RGB}{240,240,240}
 \definecolor{darkblue}{RGB}{0,51,102}
+\definecolor{softblue}{RGB}{230,240,255}
+\definecolor{softgreen}{RGB}{230,255,230}
+\definecolor{softyellow}{RGB}{255,250,230}
+\definecolor{softorange}{RGB}{255,240,230}
+
+% Custom gradient definitions
+\newcommand{\gradientheader}{%
+  \AddToShipoutPictureBG{%
+    \AtTextUpperLeft{%
+      \begin{tikzpicture}[overlay]
+        \path[left color=primarydark, right color=primary, opacity=0.1]
+          (0,0) rectangle ++(\textwidth,-2cm);
+      \end{tikzpicture}%
+    }%
+  }%
+}
 
 % ==========================================
 % PROFESSIONAL TABLE TEMPLATES
@@ -54,7 +72,7 @@
   {\begin{tabularx}{\textwidth}{@{}X X X@{}}}
   {\end{tabularx}}
 
-% Template 2: Colored Header Table
+% Template 2: Colored Header Table with improved design
 \newcommand{\coloredheadertable}[3]{
 \begin{table}[H]
 \centering
@@ -62,7 +80,7 @@
 \rowcolors{2}{lightgray!25}{white}
 \begin{tabular}{#1}
 \toprule
-\rowcolor{primary!80}\color{white}\bfseries #2 \\
+\rowcolor{primary}\color{white}\bfseries #2 \\
 \midrule
 #3 \\
 \bottomrule
@@ -76,97 +94,178 @@
    \toprule}
   {\end{longtable}}
 
+% Enhanced Section Styling
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{primarydark}}
+  {\thesection}{1em}
+  {\titlerule[0.8pt]\vspace{2pt}}
+  [\vspace{4pt}\titlerule[0.4pt]]
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{secondary}}
+  {\thesubsection}{1em}
+  {}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{darkblue}}
+  {\thesubsubsection}{1em}
+  {}
+
+\titlespacing*{\section}{0pt}{12pt plus 4pt minus 2pt}{8pt plus 2pt minus 2pt}
+\titlespacing*{\subsection}{0pt}{10pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
+\titlespacing*{\subsubsection}{0pt}{8pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+
+% Hyperref setup with custom colors
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primarydark,
+  filecolor=magenta,      
+  urlcolor=secondary,
+  citecolor=darkblue,
+  pdftitle={Réglementation de Sécurité et Pertes de Précontrainte},
+  pdfauthor={},
+  pdfsubject={Génie Civil - Béton Précontraint}
+}
+
 % ==========================================
-% ADVANCED TCOLORBOX TEMPLATES
+% ADVANCED TCOLORBOX TEMPLATES WITH ENHANCED DESIGN
 % ==========================================
 
-\tcbuselibrary{theorems,skins,breakable}
+\tcbuselibrary{theorems,skins,breakable,xparse}
+
+% Enhanced Theorem Box with modern design
 \newtcbtheorem[number within=section]{mytheorem}{Theorem}
   {enhanced jigsaw,
    colback=white,
    colframe=primary,
    coltitle=white,
-   fonttitle=\bfseries,
+   fonttitle=\bfseries\large,
    attach boxed title to top left={yshift=-2mm, xshift=2mm},
-   boxed title style={colback=primary},
-   before skip=10pt,
-   after skip=10pt}
+   boxed title style={colback=primary, colframe=primary, sharp corners},
+   before skip=12pt,
+   after skip=12pt,
+   borderline west={3pt}{0pt}{primary},
+   drop shadow={black!25}}
   {thm}
 
-% Definition Box
-\newtcolorbox{definitionbox}[1][]{
+% Definition Box with gradient and modern styling
+\newtcolorbox{definitionbox}[1][]{%
   enhanced jigsaw,
-  colback=blue!5!white,
-  colframe=blue!75!black,
-  coltitle=blue!75!black,
-  fonttitle=\bfseries,
+  colback=softblue,
+  colframe=primarydark,
+  coltitle=white,
+  fonttitle=\bfseries\large,
   title=Definition,
   attach boxed title to top left={yshift=-2mm, xshift=2mm},
-  boxed title style={colback=blue!75!black, colframe=blue!75!black},
-  before skip=10pt,
-  after skip=10pt,
+  boxed title style={colback=primarydark, colframe=primarydark, sharp corners, rounded corners=nw},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{primary},
+  drop shadow={black!20},
   #1
 }
 
-% Example Box with Shadow
-\newtcolorbox{examplebox}[1][]{
+% Example Box with improved shadow and gradient
+\newtcolorbox{examplebox}[1][]{%
   enhanced,
-  colback=green!5!white,
-  colframe=green!75!black,
-  coltitle=green!75!black,
-  fonttitle=\bfseries,
+  colback=softgreen,
+  colframe=secondary,
+  coltitle=white,
+  fonttitle=\bfseries\large,
   title=Example,
-  shadow=4pt,
-  shadow color=gray!50,
   attach boxed title to top left={yshift=-2mm, xshift=2mm},
-  boxed title style={colback=green!75!black},
-  before skip=10pt,
-  after skip=10pt,
+  boxed title style={colback=secondary, colframe=secondary, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{secondary},
+  drop shadow={black!25},
   #1
 }
 
-% Breakable Alert Boxes
-\newtcolorbox{infobox}[1][]{
+% Breakable Info Boxes with cyan theme
+\newtcolorbox{infobox}[1][]{%
   enhanced,
   breakable,
-  colback=cyan!5!white,
-  colframe=cyan!75!black,
-  coltitle=cyan!75!black,
-  fonttitle=\bfseries,
+  colback=softblue,
+  colframe=primary,
+  coltitle=white,
+  fonttitle=\bfseries\large,
   title=Information,
   attach boxed title to top left={yshift=-2mm, xshift=2mm},
-  boxed title style={colback=cyan!75!black},
-  before skip=10pt,
-  after skip=10pt,
+  boxed title style={colback=primary, colframe=primary, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{primary},
+  drop shadow={black!20},
   #1
 }
 
-\newtcolorbox{warningbox}[1][]{
+% Warning Box with orange theme
+\newtcolorbox{warningbox}[1][]{%
   enhanced,
   breakable,
-  colback=yellow!10!white,
-  colframe=orange!75!black,
-  coltitle=orange!75!black,
-  fonttitle=\bfseries,
+  colback=softorange,
+  colframe=accent,
+  coltitle=white,
+  fonttitle=\bfseries\large,
   title=Warning,
   attach boxed title to top left={yshift=-2mm, xshift=2mm},
-  boxed title style={colback=orange!75!black},
-  before skip=10pt,
-  after skip=10pt,
+  boxed title style={colback=accent, colframe=accent, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{accent},
+  drop shadow={black!25},
   #1
 }
 
-\newtcolorbox{successbox}[1][]{
+% Success Box with green theme
+\newtcolorbox{successbox}[1][]{%
   enhanced,
-  colback=green!5!white,
-  colframe=green!75!black,
+  colback=softgreen,
+  colframe=secondary,
   coltitle=white,
-  fonttitle=\bfseries,
+  fonttitle=\bfseries\large,
   title=Success,
   attach boxed title to top left={yshift=-2mm, xshift=2mm},
-  boxed title style={colback=green!75!black},
-  before skip=10pt,
-  after skip=10pt,
+  boxed title style={colback=secondary, colframe=secondary, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{secondary},
+  drop shadow={black!20},
+  #1
+}
+
+% New: Key Concept Box
+\newtcolorbox{keyconceptbox}[1][]{%
+  enhanced,
+  colback=yellow!10!white,
+  colframe=orange!80!black,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Key Concept,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=orange!80!black, colframe=orange!80!black, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{orange!80!black},
+  drop shadow={black!25},
+  #1
+}
+
+% New: Formula Box
+\newtcolorbox{formulabox}[1][]{%
+  enhanced,
+  colback=blue!5!white,
+  colframe=darkblue,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Important Formula,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=darkblue, colframe=darkblue, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{darkblue},
+  drop shadow={black!20},
   #1
 }
 
@@ -179,6 +278,8 @@
 \fancyhead[L]{\textbf{Chapitre 3 \& 4}}
 \fancyhead[R]{Réglementation et Pertes de Précontrainte}
 \fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{primary}\leaders\hrule height \headrulewidth\hfill}}
 
 % ==========================================
 % DOCUMENT START
@@ -186,16 +287,30 @@
 
 \begin{document}
 
-% Title Page
+% Apply gradient header
+\gradientheader
+
+% Title Page with enhanced design
 \begin{titlepage}
 \centering
-\vspace*{2cm}
-{\Huge\bfseries\color{primary} Réglementation de Sécurité\\[0.5cm]et Pertes de Précontrainte\par}
+\vspace*{1cm}
+{\color{primary}\rule{\textwidth}{2pt}\par}
 \vspace{1cm}
-{\Large Chapitre 3 \& 4\par}
+{\Huge\bfseries\color{primarydark} Réglementation de Sécurité\\[0.5cm]et Pertes de Précontrainte\par}
+\vspace{0.5cm}
+{\color{secondary}\rule{0.5\textwidth}{1.5pt}\par}
+\vspace{1.5cm}
+{\Large\bfseries Chapitre 3 \& 4\par}
 \vspace{2cm}
-{\itshape Basé sur les règlements BAEL 91, BPEL 91 et Eurocode 2\par}
+{\itshape\large Basé sur les règlements BAEL 91, BPEL 91 et Eurocode 2\par}
+\vspace{1cm}
+\begin{tikzpicture}[overlay, remember picture]
+  \node[anchor=south east, inner sep=2cm, opacity=0.1] at (current page.south east) 
+    {\includegraphics[width=8cm]{example-grid-100x100bp};};
+\end{tikzpicture}
 \vfill
+{\color{primary}\rule{\textwidth}{1pt}\par}
+\vspace{0.3cm}
 {\today\par}
 \end{titlepage}
 
