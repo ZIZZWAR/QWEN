@@ -1,0 +1,872 @@
+\documentclass[12pt,a4paper]{article}
+
+% ==========================================
+% ESSENTIAL PACKAGES FOR PROFESSIONAL LATEX
+% ==========================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{csquotes}
+\usepackage{pgfgantt}
+\usepackage{background}
+\usepackage{eso-pic}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, shadows, calc, decorations.pathmorphing, patterns}
+\usetikzlibrary{cd}
+\usetikzlibrary{mindmap}
+
+% Page geometry with improved margins
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm, headheight=15pt}
+
+% Enhanced color definitions with gradient support
+\definecolor{primary}{RGB}{0,102,204}
+\definecolor{primarydark}{RGB}{0,51,102}
+\definecolor{secondary}{RGB}{0,153,76}
+\definecolor{accent}{RGB}{255,102,0}
+\definecolor{lightgray}{RGB}{240,240,240}
+\definecolor{darkblue}{RGB}{0,51,102}
+\definecolor{softblue}{RGB}{230,240,255}
+\definecolor{softgreen}{RGB}{230,255,230}
+\definecolor{softyellow}{RGB}{255,250,230}
+\definecolor{softorange}{RGB}{255,240,230}
+
+% Custom gradient definitions
+\newcommand{\gradientheader}{%
+  \AddToShipoutPictureBG{%
+    \AtTextUpperLeft{%
+      \begin{tikzpicture}[overlay]
+        \path[left color=primarydark, right color=primary, opacity=0.1]
+          (0,0) rectangle ++(\textwidth,-2cm);
+      \end{tikzpicture}%
+    }%
+  }%
+}
+
+% ==========================================
+% PROFESSIONAL TABLE TEMPLATES
+% ==========================================
+
+% Template 1: Professional Booktabs Table
+\newenvironment{professionaltable}
+  {\begin{tabularx}{\textwidth}{@{}X X X@{}}}
+  {\end{tabularx}}
+
+% Template 2: Colored Header Table with improved design
+\newcommand{\coloredheadertable}[3]{
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{lightgray!25}{white}
+\begin{tabular}{#1}
+\toprule
+\rowcolor{primary}\color{white}\bfseries #2 \\
+\midrule
+#3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+}
+
+% Template 3: Multi-page Professional Table
+\newenvironment{longprofessionaltabular}[1]
+  {\begin{longtable}{#1}
+   \toprule}
+  {\end{longtable}}
+
+% Enhanced Section Styling
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{primarydark}}
+  {\thesection}{1em}
+  {\titlerule[0.8pt]\vspace{2pt}}
+  [\vspace{4pt}\titlerule[0.4pt]]
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{secondary}}
+  {\thesubsection}{1em}
+  {}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{darkblue}}
+  {\thesubsubsection}{1em}
+  {}
+
+\titlespacing*{\section}{0pt}{12pt plus 4pt minus 2pt}{8pt plus 2pt minus 2pt}
+\titlespacing*{\subsection}{0pt}{10pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
+\titlespacing*{\subsubsection}{0pt}{8pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+
+% Hyperref setup with custom colors
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primarydark,
+  filecolor=magenta,      
+  urlcolor=secondary,
+  citecolor=darkblue,
+  pdftitle={Réglementation de Sécurité et Pertes de Précontrainte},
+  pdfauthor={},
+  pdfsubject={Génie Civil - Béton Précontraint}
+}
+
+% ==========================================
+% ADVANCED TCOLORBOX TEMPLATES WITH ENHANCED DESIGN
+% ==========================================
+
+\tcbuselibrary{theorems,skins,breakable,xparse}
+
+% Enhanced Theorem Box with modern design
+\newtcbtheorem[number within=section]{mytheorem}{Theorem}
+  {enhanced jigsaw,
+   colback=white,
+   colframe=primary,
+   coltitle=white,
+   fonttitle=\bfseries\large,
+   attach boxed title to top left={yshift=-2mm, xshift=2mm},
+   boxed title style={colback=primary, colframe=primary, sharp corners},
+   before skip=12pt,
+   after skip=12pt,
+   borderline west={3pt}{0pt}{primary},
+   drop shadow={black!25}}
+  {thm}
+
+% Definition Box with gradient and modern styling
+\newtcolorbox{definitionbox}[1][]{%
+  enhanced jigsaw,
+  colback=softblue,
+  colframe=primarydark,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Definition,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=primarydark, colframe=primarydark, sharp corners, rounded corners=nw},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{primary},
+  drop shadow={black!20},
+  #1
+}
+
+% Example Box with improved shadow and gradient
+\newtcolorbox{examplebox}[1][]{%
+  enhanced,
+  colback=softgreen,
+  colframe=secondary,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Example,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=secondary, colframe=secondary, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{secondary},
+  drop shadow={black!25},
+  #1
+}
+
+% Breakable Info Boxes with cyan theme
+\newtcolorbox{infobox}[1][]{%
+  enhanced,
+  breakable,
+  colback=softblue,
+  colframe=primary,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Information,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=primary, colframe=primary, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{primary},
+  drop shadow={black!20},
+  #1
+}
+
+% Warning Box with orange theme
+\newtcolorbox{warningbox}[1][]{%
+  enhanced,
+  breakable,
+  colback=softorange,
+  colframe=accent,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Warning,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=accent, colframe=accent, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{accent},
+  drop shadow={black!25},
+  #1
+}
+
+% Success Box with green theme
+\newtcolorbox{successbox}[1][]{%
+  enhanced,
+  colback=softgreen,
+  colframe=secondary,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Success,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=secondary, colframe=secondary, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{secondary},
+  drop shadow={black!20},
+  #1
+}
+
+% New: Key Concept Box
+\newtcolorbox{keyconceptbox}[1][]{%
+  enhanced,
+  colback=yellow!10!white,
+  colframe=orange!80!black,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Key Concept,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=orange!80!black, colframe=orange!80!black, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{orange!80!black},
+  drop shadow={black!25},
+  #1
+}
+
+% New: Formula Box
+\newtcolorbox{formulabox}[1][]{%
+  enhanced,
+  colback=blue!5!white,
+  colframe=darkblue,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  title=Important Formula,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colback=darkblue, colframe=darkblue, sharp corners},
+  before skip=12pt,
+  after skip=12pt,
+  borderline west={4pt}{0pt}{darkblue},
+  drop shadow={black!20},
+  #1
+}
+
+% ==========================================
+% HEADER AND FOOTER
+% ==========================================
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Chapitre 3 \& 4}}
+\fancyhead[R]{Réglementation et Pertes de Précontrainte}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{primary}\leaders\hrule height \headrulewidth\hfill}}
+
+% ==========================================
+% DOCUMENT START
+% ==========================================
+
+\begin{document}
+
+% Apply gradient header
+\gradientheader
+
+% Title Page with enhanced design
+\begin{titlepage}
+\centering
+\vspace*{1cm}
+{\color{primary}\rule{\textwidth}{2pt}\par}
+\vspace{1cm}
+{\Huge\bfseries\color{primarydark} Réglementation de Sécurité\\[0.5cm]et Pertes de Précontrainte\par}
+\vspace{0.5cm}
+{\color{secondary}\rule{0.5\textwidth}{1.5pt}\par}
+\vspace{1.5cm}
+{\Large\bfseries Chapitre 3 \& 4\par}
+\vspace{2cm}
+{\itshape\large Basé sur les règlements BAEL 91, BPEL 91 et Eurocode 2\par}
+\vspace{1cm}
+\begin{tikzpicture}[overlay, remember picture]
+  \node[anchor=south east, inner sep=2cm, opacity=0.1] at (current page.south east) 
+    {\includegraphics[width=8cm]{example-grid-100x100bp};};
+\end{tikzpicture}
+\vfill
+{\color{primary}\rule{\textwidth}{1pt}\par}
+\vspace{0.3cm}
+{\today\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ==========================================
+% CHAPTER 3
+% ==========================================
+
+\section{Notions de sécurité et Principe de la réglementation}
+
+\subsection{Principe de la méthode des états limites}
+
+\begin{infobox}
+Comme le règlement BAEL 91 et l'Eurocode 2, le règlement BPEL 91 est un règlement semi probabiliste basé sur la notion d'états limites.
+\end{infobox}
+
+On distingue donc :
+\begin{itemize}
+    \item \textbf{Les états limites ultimes (ELU)} : dont on considère que l'atteinte équivaut à la ruine de la structure ou un de ses éléments.
+    \item \textbf{Les états limites de service (ELS)} : dont on considère que l'atteinte compromet l'utilisation de la structure sans qu'il y ait ruine.
+\end{itemize}
+
+\subsection{Actions et sollicitations}
+
+\begin{definitionbox}
+\textbf{Actions} : Ensemble des forces et couples appliqués à une structure.
+\end{definitionbox}
+
+On distingue :
+\begin{itemize}
+    \item Les actions permanentes autres que la précontrainte, notées \textbf{G}
+    \item L'action de la précontrainte, notée \textbf{P}
+    \item Les actions variables, notées \textbf{Q}
+    \item Les actions accidentelles, notées \textbf{A} ou \textbf{FA}
+\end{itemize}
+
+\begin{definitionbox}
+\textbf{Sollicitations} : Ce sont les efforts (normal et tranchant) et les moments (fléchissant et de torsion) provoqués en chaque point et sur chaque section de la structure par les actions qui s'exercent sur elle.
+\end{definitionbox}
+
+\begin{definitionbox}
+\textbf{Sollicitations de calcul} : Elles résultent des combinaisons d'actions, c'est-à-dire de l'ensemble des actions qu'il y a lieu de considérer simultanément.
+\end{definitionbox}
+
+\subsection{Sollicitations de calcul vis-à-vis des E.L.U}
+
+\subsubsection{Combinaisons fondamentales}
+
+\begin{equation}
+S = S(\gamma_p P_m + 1.35 G_{max} + G_{min} + \gamma_{Q1} Q_1 + \sum 1.3 \Psi_{0i} Q_i)
+\end{equation}
+
+\subsubsection{Combinaisons accidentelles}
+
+\begin{equation}
+S = S(P_m + F_A + G_{max} + G_{min} + \Psi_{11} Q_1 + \sum \Psi_{2i} Q_i)
+\end{equation}
+
+\begin{infobox}
+\textbf{Définitions des coefficients :}
+\begin{itemize}
+    \item $\gamma_p = 1$ dans la plupart des cas
+    \item $P_m$ = valeur probable de la précontrainte
+    \item $G_{max}$ = ensemble des actions permanentes défavorables
+    \item $G_{min}$ = ensemble des actions permanentes favorables
+    \item $Q_1$ = valeur caractéristique d'une action variable dite de base
+    \item $Q_i (i>1)$ = valeurs caractéristiques des autres actions variables dites d'accompagnement
+    \item $F_A$ = valeur nominale de l'action accidentelle
+    \item $\gamma_{Q1} = 1.5$ dans le cas général
+    \item $\gamma_{Q1} = 1.35$ dans les cas suivants :
+    \begin{itemize}
+        \item la température
+        \item les charges d'exploitation de caractère particulier (convois militaires et convois exceptionnels des ponts routes)
+        \item les bâtiments agricoles à faible densité d'occupation humaine
+    \end{itemize}
+\end{itemize}
+\end{infobox}
+
+\begin{infobox}
+\textbf{Coefficients $\Psi_0, \Psi_1, \Psi_2$ :}\\
+Ils permettent de définir les valeurs représentatives des actions variables appliquées simultanément :
+\begin{itemize}
+    \item $\Psi_{0i} Q_i$ : valeur représentative d'application rare
+    \item $\Psi_{1i} Q_i$ : valeur représentative d'application fréquente
+    \item $\Psi_{2i} Q_i$ : valeur représentative d'application quasi-permanente
+\end{itemize}
+\end{infobox}
+
+\subsection{Sollicitations de calcul vis-à-vis des E.L.S}
+
+\subsubsection{Combinaisons rares}
+
+\begin{equation}
+S_{ser} = S(P_d + G_{max} + G_{min} + Q_1 + \sum \Psi_{0i} Q_i)
+\end{equation}
+
+Où $P_d = P_1$ ou $P_2$ (Valeurs caractéristiques maximale et minimale de la précontrainte).\\
+Ces combinaisons correspondent à des états limites que l'on cherche à éviter car leur première occurrence est susceptible de mettre en jeu la durabilité de la construction.
+
+\subsubsection{Combinaisons fréquentes}
+
+\begin{equation}
+S_{ser} = S(P_d + G_{max} + G_{min} + \Psi_{11} Q_1 + \sum \Psi_{2i} Q_i)
+\end{equation}
+
+Ces combinaisons sont à considérer lorsqu'on cherche à éviter que certains états limites soient atteints trop fréquemment.
+
+\subsubsection{Combinaisons quasi-permanentes}
+
+\begin{equation}
+S_{ser} = S(P_d + G_{max} + G_{min} + \sum \Psi_{2i} Q_i)
+\end{equation}
+
+Ces combinaisons sont celles que l'on considère pour l'étude des effets d'actions de longue durée d'application.
+
+\subsection{Sections fléchies et E.L.S. - Dimensionnement des poutres isostatiques en classe I et II}
+
+\begin{infobox}
+Les matériaux sont censés se comporter élastiquement. La vérification à l'Etat Limite de Service consiste à calculer les contraintes qui apparaissent dans les sections sous l'effet des sollicitations de calcul, et de vérifier qu'elles ne dépassent pas les contraintes réglementaires.
+\end{infobox}
+
+Soit une poutre telle que $(Gy, Gz)$ sont les axes principaux de la section de la poutre :
+\begin{itemize}
+    \item $B$ : aire de la section
+    \item $v, v'$ : ordonnées des fibres extrêmes de la section
+    \item $I$ : Inertie de $B$ par rapport à $Gz$
+    \item $I/v$ et $I/v'$ : modules d'inertie de la section
+    \item $\rho = I/(Bvv')$ : rendement géométrique de la section
+\end{itemize}
+
+\textbf{Moments :}
+\begin{itemize}
+    \item $M_g$ : Moment dû au poids propre de la structure en BP
+    \item $M_g'$ : Moment dû aux charges permanentes additionnelles (superstructures telles que chaussées, trottoirs, etc.)
+    \item $M_q$ : moment dû aux surcharges
+\end{itemize}
+
+Soit $M$ le moment fléchissant résultant, selon le cas de charge considéré, on a :
+\begin{equation}
+M_m = M_g + M_g' + M_{mq} \leq M \leq M_M = M_g + M_g' + M_{Mq}
+\end{equation}
+
+Où :
+\begin{itemize}
+    \item $M_{mq}$ : moment minimal développé par les surcharges
+    \item $M_{Mq}$ : Moment maximal développé par les surcharges
+\end{itemize}
+
+En général on a :
+\begin{equation}
+M_m = M_g + M_g' \quad \text{et} \quad M_M = M_g + M_g' + M_q
+\end{equation}
+Donc : $\Delta M = M_M - M_m = M_q$
+
+\subsubsection{Vérification des contraintes}
+
+Les vérifications des contraintes peuvent se ramener aux deux cas suivants :
+
+\begin{itemize}
+    \item \textbf{Cas 1 :} élément soumis à la précontrainte et à un moment minimum $M_m$
+    \item \textbf{Cas 2 :} élément soumis à la précontrainte et à un moment maximum $M_M$
+\end{itemize}
+
+Ces deux ensembles peuvent être regroupés sous forme du diagramme de vérification suivant :
+
+On prend $\sigma$ pour la fibre sup et $\sigma'$ pour la fibre inf, 1 pour le cas de charge min et 2 pour le cas de charge max.
+
+Généralement on a :
+\begin{itemize}
+    \item $\sigma_2 = \sigma_P + \sigma_g + \sigma_{g'} + \sigma_q$ et $\sigma_1 = \sigma_P + \sigma_g + \sigma_{g'}$
+    \item $\sigma'_2 = \sigma'_P + \sigma'_g + \sigma'_{g'} + \sigma'_q$ et $\sigma'_1 = \sigma'_P + \sigma'_g + \sigma'_{g'}$
+\end{itemize}
+
+Donc :
+\begin{itemize}
+    \item $\Delta \sigma = \sigma_2 - \sigma_1 = \sigma_q$
+    \item $\Delta \sigma' = \sigma'_2 - \sigma'_1 = \sigma'_q$
+\end{itemize}
+
+\section{Exercice d'application}
+
+\begin{examplebox}
+\textbf{Énoncé :}\\
+On étudie une poutre de section rectangulaire en béton précontraint avec les données suivantes :
+\begin{itemize}
+    \item Dimensions de la section : $b = 40$ cm et $h = 100$ cm
+    \item Force de précontrainte : $P = 2,5$ MN
+    \item Excentricité du câble : $e_0 = -0,35$ m (câble situé en dessous du centre de gravité)
+\end{itemize}
+
+La poutre doit supporter deux moments fléchissants critiques :
+\begin{enumerate}
+    \item Moment minimal : $+0,5$ MN.m (Poids propre)
+    \item Moment maximal : $+2,5$ MN.m (Charges d'exploitation totales)
+\end{enumerate}
+
+\textbf{Travail à faire :}
+\begin{enumerate}
+    \item Calculer les caractéristiques géométriques ($B, I, v_s, v_i, W$)
+    \item Calculer les contraintes aux fibres extrêmes sous $M_{min}$
+    \item Calculer les contraintes aux fibres extrêmes sous $M_{max}$
+\end{enumerate}
+\end{examplebox}
+
+\section{Centre de pression}
+
+La section du béton est sollicitée par un moment fléchissant $m = Pe_0 + M$ et un effort normal $P$.
+
+$(m, P)$ est équivalent à l'action de l'effort normal $P$ appliqué en un point $C$ de l'axe $(Gy)$ appelé centre de pression donné par son ordonnée $e$ égale à :
+
+\begin{equation}
+e = \frac{m}{P} = e_0 + \frac{M}{P}
+\end{equation}
+
+\begin{definitionbox}
+\textbf{Ligne de pression}\\
+Comme $M$ dépend de la section considérée de la poutre, le lieu des points $C$ lorsque la section décrit la poutre (le long de la poutre) est appelé \textbf{ligne de pression}.
+\end{definitionbox}
+
+Il en résulte que lorsque la poutre est soumise à l'action de la précontrainte seule ($M=0$ donc $e=e_0$), la ligne de pression est confondue avec le tracé du câble, appelé \textbf{ligne de précontrainte}.
+
+D'autre part, l'effet d'un moment extérieur est de déplacer le centre de pression sur l'axe $(Gy)$ à partir du câble de la quantité algébrique $M/P$.
+
+\section{Contraintes normales du Béton}
+
+Au droit d'une fibre d'ordonnée $y$, la contrainte qui s'exerce vaut :
+
+\begin{equation}
+\sigma(y) = \frac{P}{B} + \frac{my}{I} = \frac{P}{B} + \frac{(Pe_0 + M)y}{I}
+\end{equation}
+
+Ou encore :
+\begin{equation}
+\sigma(y) = \frac{P}{B} \left( 1 + \frac{ey}{\rho vv'} \right), \quad e = e_0 + \frac{M}{P}
+\end{equation}
+
+($Pe_0 + M = Pe$ et $I = \rho Bvv'$)
+
+Donc, quelque soit le cas de charge appliqué, au niveau de $G$ ($y=0$) :
+\begin{equation}
+\sigma_G = \frac{P}{B} \quad (\text{Pivot})
+\end{equation}
+
+Le diagramme des contraintes $(\sigma, \sigma')$ passe par $\sigma_G$, soit :
+\begin{itemize}
+    \item $\sigma = Av + B_1$ et $\sigma' = -Av' + B_1$
+    \item $A$ et $B_1$ étant deux constantes et $\sigma_G$ est égale à $B_1$
+\end{itemize}
+
+$\sigma - \sigma' = A(v+v') \rightarrow A = (\sigma - \sigma')/h$
+
+$B_1 = \sigma - Av = \sigma - v(\sigma - \sigma')/h = (v'\sigma + \sigma'v)/h$
+
+Donc :
+\begin{equation}
+\sigma_G = \frac{P}{B} = \frac{v'\sigma + v\sigma'}{h}
+\end{equation}
+
+\section{Noyau limite de Traction et de Compression}
+
+Si l'on exprime le respect des contraintes limites, on obtient :
+
+Pour $y = v$ :
+\begin{equation}
+\sigma_1 \leq \frac{P}{B} \left( 1 + \frac{e}{\rho v'} \right) \leq \sigma_2
+\end{equation}
+
+Pour $y = -v'$ :
+\begin{equation}
+\sigma'_2 \leq \frac{P}{B} \left( 1 - \frac{e}{\rho v} \right) \leq \sigma'_1
+\end{equation}
+
+On établira de même les relations :
+\begin{equation}
+\frac{I}{v} = \frac{\Delta M}{\Delta \sigma}, \quad \Delta \sigma = \sigma_2 - \sigma_1
+\end{equation}
+
+\begin{equation}
+\frac{I}{v'} = \frac{\rho Ph}{v'\sigma'_1 + v\sigma_1}
+\end{equation}
+
+\begin{warningbox}
+\textbf{Remarque :} Si la section est sur-critique, la détermination du coffrage nécessite la connaissance de la valeur de la précontrainte, mais la détermination de la précontrainte suppose la section du béton connue, d'où la nécessité d'un calcul par approximations successives.
+\end{warningbox}
+
+\section{Récapitulatif (coffrage et précontrainte)}
+
+\subsection{Section sous-critique (hypothèse)}
+
+\begin{enumerate}
+    \item $P = \frac{\Delta M}{\frac{I}{v} + \frac{I}{v'} + \frac{B}{P}(\sigma'_2 + \sigma_1)\rho(v+v')}$
+    \item $e_0 = \frac{I}{P}\left(\frac{B\sigma'_1}{I}v - \frac{M_M}{I}\right) = \frac{I}{P}\left(-\frac{B\sigma_1}{I}v' - \frac{M_m}{I}\right)$
+    \item $\frac{I}{v} = \frac{\Delta M}{\Delta \sigma}$
+    \item $\frac{I}{v'} = \frac{\Delta M}{\Delta \sigma'}$
+\end{enumerate}
+
+(3) Et (4) donnent le coffrage, (1) la précontrainte et (2) son excentricité.
+
+\subsection{Section sur-critique avec moments positifs}
+
+\begin{enumerate}
+    \item[$1'.$] $P = \frac{M_M + \frac{I}{v'}\sigma'_2}{v' + \rho v - d'}$
+    \item[$2'.$] $e_0 = -(v' - d')$
+    \item[$3'.$] $\frac{I}{v'} = \frac{\Delta M}{\Delta \sigma'}$
+    \item[$4'.$] $\frac{I}{v'} = \frac{\rho Ph}{v'\sigma_2 + v\sigma'_2}$
+\end{enumerate}
+
+Les équations (3') et (4') permettent de fixer les dimensions géométriques de la section, (1') la précontrainte et (2') son excentricité.
+
+\subsection{Section sur-critique avec moments négatifs}
+
+\begin{enumerate}
+    \item[$1''. $] $P = \frac{-M_m + \frac{I}{v}\sigma_1}{v + \rho v' - d}$
+    \item[$2''. $] $e_0 = v - d$
+    \item[$3''. $] $\frac{I}{v} = \frac{\Delta M}{\Delta \sigma}$
+    \item[$4''. $] $\frac{I}{v} = \frac{\rho Ph}{v'\sigma'_1 + v\sigma_1}$
+\end{enumerate}
+
+De même les équations (3") et (4") permettent de fixer les dimensions géométriques de la section, (1") la précontrainte et (2") son excentricité.
+
+\section{Conclusion pratique}
+
+\begin{successbox}
+Dans la pratique, on n'a pas à demander au préalable si la section considérée est sur-critique ou sous-critique, il suffit d'appliquer les règles suivantes (exemple de classe I) :
+
+\begin{enumerate}
+    \item $P_1 = \frac{\Delta M}{c + c'}$
+    \item $P_2 = \frac{M_M}{v' + c - d'}$ si $M > 0$
+    \item $P_2 = \frac{-M_m}{v + c' - d}$ si $M < 0$
+\end{enumerate}
+
+\textbf{Critère :}
+\begin{itemize}
+    \item Si $P_1 > P_2$ donc la section est sous-critique
+    \item Si $P_1 < P_2$ donc la section est sur-critique
+\end{itemize}
+\end{successbox}
+
+\section{Exercice : Dalle précontrainte}
+
+\begin{examplebox}
+Soit une dalle de 15 m de portée, soumise à une charge d'exploitation : $q = 0,05$ MN/m²
+
+\textbf{Données :}
+\begin{itemize}
+    \item Gaines de 71 mm de diamètre extérieur
+    \item Enrobage minimum par rapport à l'axe : $1,5 \times b_s$
+    \item Résistance du béton : 30 MPa
+    \item Largeur de la section : $b = 4$ m
+    \item Contrainte admissible en compression : $0,5 \cdot f_{c28}$
+    \item En traction : $\bar{\sigma}_{tu} = \sigma_{tu} = 0$
+\end{itemize}
+
+\textbf{Objectif :} Déterminer la section minimale de béton pour cette dalle précontrainte.
+\end{examplebox}
+
+% ==========================================
+% CHAPTER 4
+% ==========================================
+
+\newpage
+\section{Chapitre 4 : Notions de pertes de précontrainte}
+
+\subsection{Tension à l'origine}
+
+\begin{definitionbox}
+\textbf{Tension à l'origine} = tension du câble de précontrainte mesurée au vérin actif.
+\end{definitionbox}
+
+\subsection{Pertes de précontrainte}
+
+\begin{definitionbox}
+\textbf{Pertes de précontrainte} = écart entre la tension à l'origine et la tension qui s'exerce en un point donné d'une armature à un instant donné.
+\end{definitionbox}
+
+\begin{infobox}
+\textbf{Causes des pertes}\\
+Plusieurs phénomènes inévitables produisent des pertes de tension :
+\begin{itemize}
+    \item Comportement des matériaux
+    \item Mode de précontrainte
+    \item Procédé de mise en tension
+\end{itemize}
+\end{infobox}
+
+\begin{infobox}
+\textbf{Classification des pertes}\\
+Les pertes de précontrainte peuvent être classées en deux catégories :
+\begin{enumerate}
+    \item \textbf{Les pertes instantanées} : qui se produisent lors de la mise en tension ou de la mise en précontrainte
+    \item \textbf{Les pertes différées} : qui se produisent pendant un temps plus ou moins long
+\end{enumerate}
+\end{infobox}
+
+\section{Pertes instantanées}
+
+Elles se produisent lors de la mise en tension ou de la mise en précontrainte et résultent de la technologie ou des propriétés des matériaux.
+
+On distingue :
+\begin{itemize}
+    \item Les pertes par frottement
+    \item Les pertes à l'ancrage
+    \item Les pertes par déformations instantanées du béton
+\end{itemize}
+
+\subsection{Pertes par frottement ($\Delta \sigma_\varphi$)}
+
+La mise en tension d'un câble produit un déplacement du câble par rapport à sa gaine et ce mouvement s'accompagne inévitablement de frottement. La force dans le câble diminue à mesure qu'on s'éloigne du vérin actif.
+
+Les pertes par frottement se divisent en deux types :
+
+\subsubsection{Les pertes dans les parties courbes du câble}
+
+\begin{equation}
+dP = f P d\alpha \quad \Rightarrow \quad d\sigma = f \sigma d\alpha
+\end{equation}
+
+\begin{equation}
+\sigma_P = \sigma_{P0} e^{-f\alpha}
+\end{equation}
+
+Avec :
+\begin{itemize}
+    \item $f$ : coefficient de frottement du câble sur sa gaine
+    \item $\alpha$ : angle de relevage du câble
+\end{itemize}
+
+\subsubsection{Les pertes en ligne droite}
+
+Le tracé théorique d'un câble ne peut pas être parfaitement réalisé (la gaine est soutenue ponctuellement).
+
+\begin{equation}
+\sigma_P = \sigma_{P0} e^{-\varphi x}
+\end{equation}
+
+Avec :
+\begin{itemize}
+    \item $\varphi$ = coefficient de perte au mètre linéaire
+    \item $x$ = distance du vérin actif à la section considérée
+\end{itemize}
+
+La tension en une section donnée, compte tenu des frottements, est alors :
+
+\begin{equation}
+\sigma_P(x) = \sigma_{P0} e^{-(f\alpha(x) + \varphi x)}
+\end{equation}
+
+La perte par frottement est donc :
+\begin{equation}
+\Delta \sigma_\varphi(x) = \sigma_{P0} - \sigma_P(x)
+\end{equation}
+
+\subsection{Pertes à l'ancrage ($\Delta \sigma_g$)}
+
+Le jeu existant dans l'ancrage permet un léger glissement avant blocage définitif de l'ancrage. Ce glissement et le tassement ou la déformation propre des pièces d'ancrage lorsque l'effort appliqué par le vérin leur est transféré, entraînent un raccourcissement du câble.
+
+Le mouvement de l'armature est contrarié par le frottement de l'acier sur la gaine. Il en résulte que la perte par recul d'ancrage n'affecte qu'une longueur partielle $L_g$ de l'armature, voisine de l'ancrage.
+
+\subsection{Pertes par déformations instantanées du béton ($\Delta \sigma_{racc}$)}
+
+On distingue :
+\begin{itemize}
+    \item Les pertes par non simultanéité de mise en tension
+    \item L'effet d'une action permanente
+\end{itemize}
+
+\subsection{Perte instantanée totale}
+
+\begin{equation}
+\Delta \sigma_{Pi}(x) = \Delta \sigma_\varphi(x) + \Delta \sigma_g(x) + \Delta \sigma_{racc}(x)
+\end{equation}
+
+\section{Pertes différées}
+
+Elles proviennent de l'évolution dans le temps des caractéristiques des matériaux lorsqu'ils sont soumis à des actions permanentes.
+
+On distingue :
+\begin{itemize}
+    \item Les pertes par retrait du béton ($\Delta \sigma_r$)
+    \item Les pertes par fluage du béton ($\Delta \sigma_{fl}$)
+    \item Les pertes par relaxation de l'acier ($\Delta \sigma_\rho$)
+\end{itemize}
+
+\subsection{Pertes par retrait du béton}
+
+La perte totale par retrait est donnée par :
+\begin{equation}
+\Delta \sigma_r = \varepsilon_r [1 - r(t_0)] E_p
+\end{equation}
+
+Pour calculer la perte à un temps $t$ l'expression devient :
+\begin{equation}
+\Delta \sigma_r(t) = \varepsilon_r [r(t) - r(t_0)] E_p
+\end{equation}
+
+Avec :
+\begin{itemize}
+    \item $r(t_0)$ : part de retrait effectué avant mise en tension
+    \item $\varepsilon_r$ : retrait final du béton (valeurs forfaitaires Art.2.1.51)
+    \item $r(t) = t / (t + 9)$
+\end{itemize}
+
+\subsection{Pertes par fluage du béton}
+
+La perte totale due au fluage est :
+\begin{equation}
+\Delta \sigma_{fl} = E_p \cdot \varepsilon_{fl}
+\end{equation}
+
+Au temps $t$, la perte due au fluage est donnée par :
+\begin{equation}
+\Delta \sigma_{fl}(t) = E_p \cdot \varepsilon_{fl}(t)
+\end{equation}
+
+\begin{infobox}
+Le fluage est un phénomène complexe dont l'étude est très délicate. Pour cela, le BPEL (Art.3.3.22) propose pour les cas courants une formule simplifiée :
+
+\begin{equation}
+\Delta \sigma_{fl} = (\sigma_b + \sigma_{Pij}) E_p / E_{cj}
+\end{equation}
+
+Où $f_{cj} = f_{c28} \frac{4,76 + 0,83j}{j}$
+\end{infobox}
+
+\subsection{Pertes par relaxation de l'acier}
+
+La perte finale de tension due à la relaxation de l'acier est donnée par :
+
+\begin{equation}
+\Delta \sigma_\rho = 6 \cdot 10^{-2} \left( \frac{\sigma_{pi}}{f_{prg}} - \mu \right) \sigma_{pi}
+\end{equation}
+
+Avec $\mu$ dépendant du type d'acier.
+
+\subsection{Pertes différées totales}
+
+\begin{equation}
+\Delta \sigma_d(x) = \Delta \sigma_r(x) + \Delta \sigma_{fl}(x) + \frac{5}{6} \Delta \sigma_\rho(x)
+\end{equation}
+
+% ==========================================
+% BIBLIOGRAPHY
+% ==========================================
+
+\newpage
+\begin{thebibliography}{99}
+\bibitem{BAEL91}
+Règlement BAEL 91 modifié 99, \textit{Béton Armé aux États Limites}, Ministère de l'Équipement, France.
+
+\bibitem{BPEL91}
+Règlement BPEL 91 modifié 99, \textit{Béton Précontraint aux États Limites}, Ministère de l'Équipement, France.
+
+\bibitem{EC2}
+Eurocode 2, \textit{Calcul des structures en béton}, NF EN 1992-1-1, AFNOR, 2005.
+\end{thebibliography}
+
+\end{document}
