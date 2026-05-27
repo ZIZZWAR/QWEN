@@ -1,18 +1,1 @@
-```
-# LaTeX build artifacts
-*.aux
-*.bbl
-*.blg
-*.idx
-*.ilg
-*.ind
-*.lof
-*.lot
-*.out
-*.toc
-*.log
-*.fls
-*.fdb_latexmk
-*.synctex.gz
-*.pdf
-```
+Nothing needs to be added to .gitignore since the only change is adding a LaTeX file (.tex), which is source code and should not be ignored.
